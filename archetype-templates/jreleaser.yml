@@ -1,0 +1,35 @@
+project:
+  name: EximeeBPMS Archetypes
+  description: Maven Archetype template sources for EximeeBPMS process applications
+  links:
+    homepage: https://eximeebpms.org
+  languages:
+    java:
+      groupId: org.eximeebpms.bpm.archetype
+      version: '17'
+
+deploy:
+  maven:
+    mavenCentral:
+      MavenCentral:
+        active: RELEASE
+        applyMavenCentralRules: true
+        # Artifacts are already GPG-signed by maven-gpg-plugin during the build (release
+        # profile, verify phase) before staging - JReleaser doesn't need to sign anything
+        # itself, only upload what's already there. Matches the real eximeebpms pipeline
+        # (see jreleaser.yml in the eximeebpms engine repo).
+        sign: false
+        # Upload only, don't auto-publish (default stage is FULL = upload + publish).
+        # The deployment sits in Central Publisher Portal awaiting manual confirmation:
+        # https://central.sonatype.com/publishing/deployments
+        stage: UPLOAD
+        url: https://central.sonatype.com/api/v1/publisher
+        stagingRepositories:
+          - target/staging-deploy
+        retryDelay: 30
+        maxRetries: 99
+    # PomChecker still runs, but non-strict: maven-archetype-packaged modules have no
+    # javadoc-worthy content (they're Velocity template resources, not compiled Java),
+    # so the attached javadoc jar is legitimately near-empty - strict mode would reject it.
+    pomchecker:
+      strict: false

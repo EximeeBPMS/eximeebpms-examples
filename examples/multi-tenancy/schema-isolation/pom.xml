@@ -1,0 +1,186 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.eximeebpms.bpm.tutorial</groupId>
+  <artifactId>eximeebpms-tutorial-multi-tenancy-schema-isolation</artifactId>
+  <packaging>war</packaging>
+  <name>EximeeBPMS - Tutorial - Tenant-Aware Process Application</name>
+  <version>0.0.1-SNAPSHOT</version>
+
+  <properties>
+    <eximeebpms.version>1.3.0</eximeebpms.version>
+    <arquillian.version>1.7.0.Final</arquillian.version>
+    <wildfly.container.adapter.version>3.0.1.Final</wildfly.container.adapter.version>
+    <version.resteasy>6.2.3.Final</version.resteasy>
+    <version.junit>4.13.2</version.junit>
+    <version.slf4j>1.7.36</version.slf4j>
+    <maven.compiler.release>17</maven.compiler.release>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <failOnMissingWebXml>false</failOnMissingWebXml>
+
+    <version.plugin.maven-compiler>3.11.0</version.plugin.maven-compiler>
+  </properties>
+  
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.eximeebpms.bpm</groupId>
+        <artifactId>eximeebpms-bom</artifactId>
+        <version>${eximeebpms.version}</version>
+        <scope>import</scope>
+        <type>pom</type>
+      </dependency>
+      <dependency>
+        <!-- Needed for ArquillianTest -->
+        <groupId>org.jboss.arquillian</groupId>
+        <artifactId>arquillian-bom</artifactId>
+        <version>${arquillian.version}</version>
+        <scope>import</scope>
+        <type>pom</type>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+  
+  <dependencies>
+    
+    <!-- process engine, needs to be provided -->
+    <dependency>
+      <groupId>org.eximeebpms.bpm</groupId>
+      <artifactId>eximeebpms-engine</artifactId>
+      <scope>provided</scope>
+    </dependency>
+    
+    <!-- client for Java EE application server integration, included in WAR as an alternative to write your own ProcessApplication class -->
+    <dependency>
+      <groupId>org.eximeebpms.bpm.javaee</groupId>
+      <artifactId>eximeebpms-ejb-client-jakarta</artifactId>
+    </dependency>
+    
+    <!-- CDI integration, needs to be included in WAR, otherwise CDI can not work correctly -->
+    <dependency>
+      <groupId>org.eximeebpms.bpm</groupId>
+      <artifactId>eximeebpms-engine-cdi-jakarta</artifactId>
+    </dependency>    
+    
+    <dependency>
+      <groupId>jakarta.platform</groupId>
+      <artifactId>jakarta.jakartaee-api</artifactId>
+      <version>10.0.0</version>
+      <scope>provided</scope>
+    </dependency>
+    
+    <dependency>
+      <groupId>org.jboss.resteasy</groupId>
+      <artifactId>resteasy-core</artifactId>
+      <version>${version.resteasy}</version>
+      <scope>provided</scope>
+    </dependency>
+    
+    <!-- Needed for Tests -->
+    
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <scope>test</scope>
+      <version>${version.junit}</version>
+    </dependency>
+    
+    <!-- Required to use Connectors in unit tests -->
+    <dependency>
+      <groupId>org.eximeebpms.connect</groupId>
+      <artifactId>eximeebpms-connect-connectors-all</artifactId>
+      <scope>test</scope>
+    </dependency>
+    
+    <!-- Required to use Spin in unit tests -->
+    <dependency>
+      <groupId>org.eximeebpms.spin</groupId>
+      <artifactId>eximeebpms-spin-dataformat-all</artifactId>
+       <scope>test</scope>
+    </dependency>
+    
+    <!-- Needed for ArquillianTest -->
+      
+    <dependency>
+      <groupId>org.jboss.arquillian.junit</groupId>
+      <artifactId>arquillian-junit-container</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.jboss.arquillian.protocol</groupId>
+      <artifactId>arquillian-protocol-servlet-jakarta</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.jboss.shrinkwrap.resolver</groupId>
+      <artifactId>shrinkwrap-resolver-impl-maven</artifactId>
+      <scope>test</scope>
+    </dependency>
+    
+    <!-- Logging -->
+    
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>jcl-over-slf4j</artifactId>
+      <version>${version.slf4j}</version>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>jul-to-slf4j</artifactId>
+      <version>${version.slf4j}</version>
+      <scope>test</scope>
+    </dependency>
+    
+  </dependencies>
+
+  <profiles>
+    <profile>
+      <id>wildfly-remote</id>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
+      <dependencies>
+        <dependency>
+          <!-- Needed for ArquillianTest -->
+          <!-- Requires a running WildFly with EximeeBPMS Platform -->
+          <groupId>org.wildfly.arquillian</groupId>
+          <artifactId>wildfly-arquillian-container-remote</artifactId>
+          <version>${wildfly.container.adapter.version}</version>
+          <scope>test</scope>
+          <exclusions>
+            <exclusion>
+              <groupId>org.picketbox</groupId>
+              <artifactId>picketbox</artifactId>
+          </exclusion>
+          </exclusions>
+        </dependency>
+      </dependencies>
+    </profile>
+  </profiles>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>${version.plugin.maven-compiler}</version>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-war-plugin</artifactId>
+        <version>3.3.2</version>
+      </plugin>
+    </plugins>
+  </build>
+
+  <repositories>
+    <repository>
+      <id>jboss-public-repository</id>
+      <name>JBoss Repository</name>
+      <url>https://repository.jboss.org/nexus/content/groups/public</url>
+    </repository>
+  </repositories>
+
+</project>

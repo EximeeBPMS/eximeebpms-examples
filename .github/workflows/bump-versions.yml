@@ -1,0 +1,87 @@
+name: Bump versions
+
+# Manually triggered. Replaces every literal occurrence of oldVersion with newVersion
+# across pom.xml, README.md, and package.json in the whole repository, then opens a PR
+# with the result for review - never pushes directly to main.
+#
+# Self-contained on purpose: the original camunda-bpm-examples this repo was forked from
+# has two separate workflows for this (main.yml, using the third-party
+# camunda/bump-versions-action; bump-versions.yml, running a "bump-versions" Maven
+# profile that doesn't exist in this repo's own poms). Neither was ported - this
+# workflow reimplements the same simple, blunt search-and-replace main.yml did
+# (confirmed: that's all camunda/bump-versions-action actually does), without depending
+# on an external, Camunda-controlled GitHub Action we don't control the release cadence
+# or continued existence of.
+#
+# Typical use: run this right after a new EximeeBPMS engine version ships, to bump the
+# ~54 pom.xml files across examples/, archetype-templates/, archetype-samples/, and
+# assert-scenario/ that pin <eximeebpms.version>/<version.eximeebpms> to the old release.
+
+permissions:
+  contents: write
+  pull-requests: write
+
+on:
+  workflow_dispatch:
+    inputs:
+      oldVersion:
+        description: 'Old version (search), e.g. 1.3.0'
+        required: true
+      newVersion:
+        description: 'New version (replace), e.g. 1.4.0'
+        required: true
+
+jobs:
+  bump-versions:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+
+      - name: Replace old version with new version
+        run: |
+          set -euo pipefail
+          OLD="${{ github.event.inputs.oldVersion }}"
+          NEW="${{ github.event.inputs.newVersion }}"
+
+          # -F: literal string match, not a regex (version numbers contain dots)
+          # Excludes target/ and node_modules/ - build/dependency output, never hand-edited.
+          FILES=$(find . -type f \( -name 'pom.xml' -o -name 'README.md' -o -name 'package.json' \) \
+            -not -path '*/target/*' -not -path '*/node_modules/*')
+
+          MATCHED=0
+          for f in $FILES; do
+            if grep -qF "$OLD" "$f"; then
+              sed -i "s/${OLD//./\\.}/${NEW}/g" "$f"
+              MATCHED=$((MATCHED + 1))
+            fi
+          done
+
+          echo "Replaced '$OLD' -> '$NEW' in $MATCHED file(s)."
+          echo "MATCHED_COUNT=$MATCHED" >> "$GITHUB_ENV"
+
+      - name: Fail if nothing matched
+        if: env.MATCHED_COUNT == '0'
+        run: |
+          echo "::error::No file contained '${{ github.event.inputs.oldVersion }}' - check the oldVersion input."
+          exit 1
+
+      - name: Create pull request
+        uses: peter-evans/create-pull-request@v7
+        with:
+          commit-message: 'chore: bump version ${{ github.event.inputs.oldVersion }} -> ${{ github.event.inputs.newVersion }}'
+          branch: bump-versions
+          delete-branch: true
+          title: 'Bump version ${{ github.event.inputs.oldVersion }} -> ${{ github.event.inputs.newVersion }}'
+          body: |
+            Literal search-and-replace of `${{ github.event.inputs.oldVersion }}` -> `${{ github.event.inputs.newVersion }}`
+            across every `pom.xml`, `README.md`, and `package.json` in the repository
+            (${{ env.MATCHED_COUNT }} file(s) changed).
+
+            Review the diff before merging - this is a blunt string replacement, not a
+            version-aware bump, so it can also touch an unrelated string that happens to
+            match (e.g. a coincidentally identical dependency version pinned in a
+            different module). Created by GitHub Action.
+          base: main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

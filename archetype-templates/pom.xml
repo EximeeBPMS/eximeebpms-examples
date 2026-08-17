@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>org.eximeebpms.bpm.archetype</groupId>
+  <artifactId>eximeebpms-archetype-root</artifactId>
+  <version>1.3.0</version>
+  <packaging>pom</packaging>
+
+  <name>EximeeBPMS Archetypes Parent POM</name>
+  <description>Maven Archetype template sources used to scaffold new EximeeBPMS process applications.</description>
+  <url>https://github.com/EximeeBPMS/eximeebpms-examples/tree/main/archetype-templates</url>
+
+  <organization>
+    <name>EximeeBPMS</name>
+    <url>https://eximeebpms.org</url>
+  </organization>
+
+  <developers>
+    <developer>
+      <id>EximeeBPMS</id>
+      <name>EximeeBPMS Community</name>
+      <organization>EximeeBPMS</organization>
+      <organizationUrl>https://eximeebpms.org</organizationUrl>
+    </developer>
+  </developers>
+
+  <modules>
+    <module>ejb-war</module>
+    <module>servlet-war</module>
+    <module>cockpit-plugin</module>
+    <module>engine-plugin</module>
+    <module>servlet-war-demo</module>
+    <module>spring-boot</module>
+    <module>spring-boot-demo</module>
+  </modules>
+
+  <properties>
+    <!-- dropped the org.camunda:camunda-release-parent inheritance: it only supplied
+         deploy/GPG/nexus-staging config for publishing to Camunda's own Nexus/Central
+         account. Publishing config for our own org.eximeebpms.bpm.archetype coordinates
+         is defined directly below (release profile), matching the plugin versions used
+         by the real eximeebpms release pipeline (eximeebpms-release-parent). -->
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+    <version.assertj-core>3.26.3</version.assertj-core>
+    <version.eximeebpms>1.3.0</version.eximeebpms>
+    <!-- eximeebpms-bpm-assert-scenario is forked (docs-camunda-repository-references.md,
+         part of the eximeebpms-examples consolidation) but not yet published anywhere;
+         this SNAPSHOT version matches its current local build -->
+    <version.eximeebpms-bpm-assert-scenario>1.0.0-SNAPSHOT</version.eximeebpms-bpm-assert-scenario>
+    <version.h2>2.3.232</version.h2>
+    <version.junit-jupiter>6.1.3</version.junit-jupiter>
+    <version.logback>1.2.12</version.logback>
+    <version.maven-war-plugin>3.3.2</version.maven-war-plugin>
+    <version.maven-surefire-plugin>3.1.2</version.maven-surefire-plugin>
+    <version.maven-compiler-plugin>3.11.0</version.maven-compiler-plugin>
+    <version.slf4j>1.7.36</version.slf4j>
+    <version.springBoot>4.1.0</version.springBoot>
+
+    <plugin.version.license>3.0</plugin.version.license>
+    <plugin.version.compiler>3.6.2</plugin.version.compiler>
+    <plugin.version.javadoc>3.0.1</plugin.version.javadoc>
+    <plugin.version.maven-bundle>4.1.0</plugin.version.maven-bundle>
+
+    <!-- only used by the release profile below -->
+    <gpg.useagent>true</gpg.useagent>
+    <gpg.passphrase>${env.GPG_PASSPHRASE}</gpg.passphrase>
+  </properties>
+
+  <licenses>
+    <license>
+      <name>The Apache Software License, Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+    </license>
+  </licenses>
+
+  <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-war-plugin</artifactId>
+          <version>${version.maven-war-plugin}</version>
+        </plugin>
+
+        <plugin>
+          <artifactId>maven-archetype-plugin</artifactId>
+          <version>3.1.0</version>
+        </plugin>
+
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-resources-plugin</artifactId>
+          <version>3.1.0</version>
+          <configuration>
+            <escapeString>\</escapeString>
+          </configuration>
+        </plugin>
+        
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-javadoc-plugin</artifactId>
+          <configuration>
+            <failOnError>false</failOnError>
+          </configuration>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
+
+  <scm>
+    <connection>scm:git:ssh://git@github.com/eximeebpms/eximeebpms-examples.git</connection>
+    <developerConnection>scm:git:ssh://git@github.com/eximeebpms/eximeebpms-examples.git</developerConnection>
+    <url>https://github.com/eximeebpms/eximeebpms-examples</url>
+    <tag>HEAD</tag>
+  </scm>
+
+  <!-- distributionManagement intentionally omitted: the release profile below stages
+       locally (maven-deploy-plugin's altDeploymentRepository) and a separate JReleaser
+       run (see jreleaser.yml) uploads the staged bundle to Maven Central's Publisher
+       Portal - the same two-step pattern the real eximeebpms release pipeline uses,
+       chosen there specifically because deploying straight to Central via
+       distributionManagement/central-publishing-maven-plugin as a build extension
+       reliably failed once the bundle grew past a few dozen modules (BPMS-385). -->
+
+  <profiles>
+    <!-- activate this profile (-Prelease) to build a Maven Central-ready, signed release -->
+    <profile>
+      <id>release</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-source-plugin</artifactId>
+            <version>3.2.1</version>
+            <executions>
+              <execution>
+                <id>attach-sources</id>
+                <phase>package</phase>
+                <goals>
+                  <goal>jar-no-fork</goal>
+                </goals>
+              </execution>
+              <execution>
+                <id>attach-test-sources</id>
+                <phase>package</phase>
+                <goals>
+                  <goal>test-jar-no-fork</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+          <!-- No maven-javadoc-plugin execution here: it self-skips for maven-archetype
+               packaging ("not a Java classpath-capable package") - confirmed the real,
+               published org.camunda.bpm.archetype:* artifacts on Maven Central also ship
+               without a -javadoc.jar (only .jar, -sources.jar, -test-sources.jar). -->
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-gpg-plugin</artifactId>
+            <version>3.2.7</version>
+            <configuration>
+              <passphrase>${gpg.passphrase}</passphrase>
+            </configuration>
+            <executions>
+              <execution>
+                <id>sign-artifacts</id>
+                <phase>verify</phase>
+                <goals>
+                  <goal>sign</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-deploy-plugin</artifactId>
+            <version>3.1.4</version>
+            <configuration>
+              <altDeploymentRepository>local::file:${maven.multiModuleProjectDirectory}/target/staging-deploy</altDeploymentRepository>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
+</project>

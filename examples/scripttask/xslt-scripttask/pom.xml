@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>org.eximeebpms.bpm.example</groupId>
+  <artifactId>xslt-example</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <packaging>jar</packaging>
+
+  <properties>
+    <eximeebpms.version>1.3.0</eximeebpms.version>
+    <groovy.version>5.0.8</groovy.version>
+    <slf4j.version>1.7.36</slf4j.version>
+    <junit.version>4.13.2</junit.version>
+    <assertj.version>3.21.0</assertj.version>
+    <h2.version>2.3.232</h2.version>
+    <saxon-he.version>12.7</saxon-he.version>
+    <maven.compiler.release>17</maven.compiler.release>
+    <maven.compiler.version>3.11.0</maven.compiler.version>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.eximeebpms.bpm</groupId>
+        <artifactId>eximeebpms-bom</artifactId>
+        <version>${eximeebpms.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.eximeebpms.bpm</groupId>
+      <artifactId>eximeebpms-engine</artifactId>
+      <scope>provided</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.eximeebpms.commons</groupId>
+      <artifactId>eximeebpms-commons-utils</artifactId>
+      <scope>provided</scope>
+    </dependency>
+
+    <!-- Provides the "xslt" JSR-223 ScriptEngine (org.eximeebpms.bpm.extension.xslt.*,
+         src/main/java) used by this example's script tasks. Reimplemented directly here
+         (rebranded from org.camunda.commons -> org.eximeebpms.commons) rather than as a
+         separate dependency: the upstream org.camunda.community.template.engine:
+         camunda-7-template-engine-xslt is just a thin wrapper (3 classes, no engine
+         dependency at all) around this Saxon-HE dependency. -->
+    <dependency>
+      <groupId>net.sf.saxon</groupId>
+      <artifactId>Saxon-HE</artifactId>
+      <version>${saxon-he.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.groovy</groupId>
+      <artifactId>groovy-all</artifactId>
+      <version>${groovy.version}</version>
+      <type>pom</type>
+      <exclusions>
+        <!-- pulls in junit-jupiter/junit-platform-launcher, which makes surefire
+             auto-detect the JUnit Platform provider and silently run 0 tests
+             against this module's JUnit 4 test class -->
+        <exclusion>
+          <groupId>org.apache.groovy</groupId>
+          <artifactId>groovy-test-junit5</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+
+    <!-- redirect slf4j logging to jdk logging -->
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-jdk14</artifactId>
+      <version>${slf4j.version}</version>
+    </dependency>
+
+    <!-- TEST DEPENDENCIES -->
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>${junit.version}</version>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.assertj</groupId>
+      <artifactId>assertj-core</artifactId>
+      <version>${assertj.version}</version>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>com.h2database</groupId>
+      <artifactId>h2</artifactId>
+      <version>${h2.version}</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <defaultGoal>clean test</defaultGoal>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>${maven.compiler.version}</version>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
+
+</project>

@@ -1,0 +1,7 @@
+eximeebpms.bpm:
+  webapp:
+    index-redirect-enabled: true
+  admin-user:
+    id: demo
+    password: demo
+

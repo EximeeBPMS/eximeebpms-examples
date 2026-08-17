@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>eximeebpms-platform-scenario-example</artifactId>
+
+    <parent>
+        <groupId>org.eximeebpms.bpm.extension.scenario.project</groupId>
+        <artifactId>eximeebpms-platform-scenario-root</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
+
+    <dependencies>
+
+        <dependency>
+            <groupId>org.eximeebpms.bpm.extension.scenario</groupId>
+            <artifactId>eximeebpms-platform-scenario-runner</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.eximeebpms.bpm</groupId>
+            <artifactId>eximeebpms-engine</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+    </dependencies>
+
+    <developers>
+        <developer>
+            <name>Martin Schimak</name>
+            <organization>plexiti GmbH</organization>
+            <organizationUrl>http://plexiti.com/</organizationUrl>
+        </developer>
+    </developers>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-install-plugin</artifactId>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

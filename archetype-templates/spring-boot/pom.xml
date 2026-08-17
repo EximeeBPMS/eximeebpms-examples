@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>org.eximeebpms.bpm.archetype</groupId>
+    <artifactId>eximeebpms-archetype-root</artifactId>
+    <version>1.3.0</version>
+  </parent>
+
+  <artifactId>eximeebpms-archetype-spring-boot</artifactId>
+  <packaging>maven-archetype</packaging>
+
+  <name>EximeeBPMS Archetype: Spring Boot Process Application</name>
+  <description>Process application that uses the EximeeBPMS Spring Boot Starter
+          Contains: BPMN Process, Java Delegate, HTML5- start and task forms,
+          JUnit Test with in-memory engine</description>
+
+  <build>
+    <extensions>
+      <extension>
+        <groupId>org.apache.maven.archetype</groupId>
+        <artifactId>archetype-packaging</artifactId>
+        <version>3.1.0</version>
+      </extension>
+    </extensions>
+
+    <resources>
+      <resource>
+        <directory>src/main/resources</directory>
+        <filtering>true</filtering>
+        <includes>
+          <include>archetype-resources/pom.xml</include>
+          <include>META-INF/maven/archetype-metadata.xml</include>
+        </includes>
+      </resource>
+      <resource>
+        <directory>src/main/resources</directory>
+        <filtering>false</filtering>
+        <excludes>
+          <exclude>archetype-resources/pom.xml</exclude>
+          <exclude>META-INF/maven/archetype-metadata.xml</exclude>
+        </excludes>
+      </resource>
+    </resources>
+
+    <testResources>
+      <testResource>
+        <directory>src/test/resources</directory>
+        <filtering>true</filtering>
+      </testResource>
+    </testResources>
+  </build>
+
+</project>

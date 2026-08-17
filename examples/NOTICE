@@ -1,0 +1,6 @@
+Camunda
+Copyright 2013-2025 Camunda Services GmbH
+
+scripttask/xslt-scripttask/src/main/java/org/eximeebpms/bpm/extension/xslt/ additionally
+incorporates source from camunda-community-hub/camunda-7-template-engines-jsr223
+(xslt-saxon module), by Stefan Hentschel, Apache License 2.0.

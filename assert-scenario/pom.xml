@@ -1,0 +1,394 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.eximeebpms.bpm.extension.scenario.project</groupId>
+    <artifactId>eximeebpms-platform-scenario-root</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+
+    <packaging>pom</packaging>
+
+    <name>EximeeBPMS Platform Scenario</name>
+    <description>A testing library for specifying process-scenario behavior at wait states.</description>
+    <url>https://github.com/eximeebpms/eximeebpms-examples</url>
+
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
+
+    <organization>
+        <name>EximeeBPMS</name>
+        <url>https://eximeebpms.org</url>
+    </organization>
+
+    <developers>
+        <developer>
+            <id>EximeeBPMS</id>
+            <name>EximeeBPMS Community</name>
+            <organization>EximeeBPMS</organization>
+            <organizationUrl>https://eximeebpms.org</organizationUrl>
+        </developer>
+    </developers>
+
+    <modules>
+        <module>runner</module>
+        <module>report</module>
+        <module>cucumber</module>
+        <module>deprecated</module>
+        <module>example</module>
+    </modules>
+
+    <properties>
+        <!-- dropped the org.camunda:camunda-release-parent inheritance: it only supplied
+             deploy/GPG/nexus-staging config for publishing to Camunda's own Nexus/Central
+             account, none of which applies here -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+        <eximeebpms.version>1.3.0</eximeebpms.version>
+
+        <!-- only used by the release profile below -->
+        <gpg.useagent>true</gpg.useagent>
+        <gpg.passphrase>${env.GPG_PASSPHRASE}</gpg.passphrase>
+    </properties>
+
+    <dependencyManagement>
+
+        <dependencies>
+
+            <dependency>
+                <groupId>org.eximeebpms.bpm</groupId>
+                <artifactId>eximeebpms-engine</artifactId>
+                <version>${eximeebpms.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.eximeebpms.bpm.extension.scenario</groupId>
+                <artifactId>eximeebpms-platform-scenario-runner</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.eximeebpms.bpm.extension.scenario</groupId>
+                <artifactId>eximeebpms-platform-scenario-report</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.eximeebpms.bpm.extension.scenario</groupId>
+                <artifactId>eximeebpms-platform-scenario-cucumber</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.eximeebpms.bpm</groupId>
+                <artifactId>eximeebpms-bpm-junit5</artifactId>
+                <version>${eximeebpms.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.eximeebpms.bpm</groupId>
+                <artifactId>eximeebpms-bpm-assert</artifactId>
+                <version>${eximeebpms.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>1.7.30</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-simple</artifactId>
+                <version>1.7.30</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>log4j-over-slf4j</artifactId>
+                <version>1.7.30</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>jul-to-slf4j</artifactId>
+                <version>1.7.30</version>
+            </dependency>
+
+            <dependency>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-classic</artifactId>
+                <version>1.2.3</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.mockito</groupId>
+                <artifactId>mockito-core</artifactId>
+                <version>3.9.0</version>
+            </dependency>
+
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>4.13.2</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.junit.jupiter</groupId>
+                <artifactId>junit-jupiter-engine</artifactId>
+                <version>5.7.1</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.junit.vintage</groupId>
+                <artifactId>junit-vintage-engine</artifactId>
+                <version>5.7.1</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.assertj</groupId>
+                <artifactId>assertj-core</artifactId>
+                <version>3.19.0</version>
+            </dependency>
+
+            <dependency>
+                <groupId>io.cucumber</groupId>
+                <artifactId>cucumber-java</artifactId>
+                <version>6.10.4</version>
+            </dependency>
+
+            <dependency>
+                <groupId>io.cucumber</groupId>
+                <artifactId>cucumber-junit</artifactId>
+                <version>6.10.4</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.fasterxml.uuid</groupId>
+                <artifactId>java-uuid-generator</artifactId>
+                <version>4.0.1</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.h2database</groupId>
+                <artifactId>h2</artifactId>
+                <version>1.4.200</version>
+            </dependency>
+
+        </dependencies>
+
+    </dependencyManagement>
+
+    <dependencies>
+
+        <dependency>
+            <groupId>org.eximeebpms.bpm</groupId>
+            <artifactId>eximeebpms-engine</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.eximeebpms.bpm</groupId>
+            <artifactId>eximeebpms-bpm-assert</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.eximeebpms.bpm</groupId>
+            <artifactId>eximeebpms-bpm-junit5</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.junit.vintage</groupId>
+            <artifactId>junit-vintage-engine</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-java</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.uuid</groupId>
+            <artifactId>java-uuid-generator</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>log4j-over-slf4j</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>jul-to-slf4j</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+    </dependencies>
+
+    <scm>
+        <connection>scm:git:ssh://git@github.com/eximeebpms/eximeebpms-examples.git</connection>
+        <url>https://github.com/eximeebpms/eximeebpms-examples</url>
+        <developerConnection>scm:git:ssh://git@github.com/eximeebpms/eximeebpms-examples.git</developerConnection>
+        <tag>HEAD</tag>
+    </scm>
+
+    <build>
+        <defaultGoal>clean install</defaultGoal>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <configuration>
+                        <source>8</source>
+                        <target>8</target>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>2.22.0</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+
+    <!-- distributionManagement intentionally omitted: the release profile below stages
+         locally (maven-deploy-plugin's altDeploymentRepository) and a separate JReleaser
+         run (see jreleaser.yml) uploads the staged bundle to Maven Central's Publisher
+         Portal - same two-step pattern as archetype-templates/pom.xml, chosen for the
+         same reason (see that pom's comment: BPMS-385). -->
+
+    <profiles>
+        <!-- activate this profile (-Prelease) to build a Maven Central-ready, signed release -->
+        <profile>
+            <id>release</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-source-plugin</artifactId>
+                        <version>3.2.1</version>
+                        <executions>
+                            <execution>
+                                <id>attach-sources</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>jar-no-fork</goal>
+                                </goals>
+                            </execution>
+                            <execution>
+                                <id>attach-test-sources</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>test-jar-no-fork</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <version>3.11.2</version>
+                        <configuration>
+                            <quiet>true</quiet>
+                            <failOnError>false</failOnError>
+                            <doclint>none</doclint>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>attach-javadocs</id>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>3.2.7</version>
+                        <configuration>
+                            <passphrase>${gpg.passphrase}</passphrase>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-deploy-plugin</artifactId>
+                        <version>3.1.4</version>
+                        <configuration>
+                            <altDeploymentRepository>local::file:${maven.multiModuleProjectDirectory}/target/staging-deploy</altDeploymentRepository>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
+</project>

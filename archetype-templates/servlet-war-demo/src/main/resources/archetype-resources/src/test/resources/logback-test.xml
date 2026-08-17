@@ -1,0 +1,63 @@
+<configuration>
+
+  <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    <!-- encoders are assigned the type
+         ch.qos.logback.classic.encoder.PatternLayoutEncoder by default -->
+    <encoder>
+      <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+    </encoder>
+  </appender>
+
+  <logger name="org.apache.ibatis" level="info" />
+<!-- 
+  <logger name="org.apache.ibatis" level="DEBUG"/>
+-->
+
+  <logger name="jakarta.activation" level="info" />
+
+  <logger name="org.springframework" level="info" />
+
+  <logger name="org.eximeebpms" level="info" />
+<!-- 
+  <logger name="org.eximeebpms" level="DEBUG"/>
+-->
+
+  <logger name="org.eximeebpms.bpm.engine.test" level="debug" />
+
+<!--
+  <logger name="org.eximeebpms.bpm.engine.bpmn.parser" level="debug" />
+  <logger name="org.eximeebpms.bpm.engine.bpmn.behavior" level="debug" />
+
+  <logger name="org.eximeebpms.bpm.engine.cmmn.transformer" level="debug" />
+  <logger name="org.eximeebpms.bpm.engine.cmmn.behavior" level="debug" />
+  <logger name="org.eximeebpms.bpm.engine.cmmn.operation" level="debug" />
+
+  <logger name="org.eximeebpms.bpm.engine.cmd" level="debug" />
+  <logger name="org.eximeebpms.bpm.engine.persistence" level="debug" />
+  <logger name="org.eximeebpms.bpm.engine.impl.persistence.entity" level="debug" />
+  <logger name="org.eximeebpms.bpm.engine.impl.history.event" level="debug" />
+  <logger name="org.eximeebpms.bpm.engine.impl.batch.history" level="debug" />
+  <logger name="org.eximeebpms.bpm.engine.impl.batch" level="debug" />
+  <logger name="org.eximeebpms.bpm.engine.history" level="debug" />
+  <logger name="org.eximeebpms.bpm.engine.impl.cmmn.entity.repository" level="debug" />
+  <logger name="org.eximeebpms.bpm.engine.impl.cmmn.entity.runtime" level="debug" />
+  <logger name="org.eximeebpms.bpm.engine.impl.dmn.entity.repository" level="debug" />
+  <logger name="org.eximeebpms.bpm.engine.tx" level="debug" />
+  <logger name="org.eximeebpms.bpm.engine.cfg" level="debug" />
+  <logger name="org.eximeebpms.bpm.engine.jobexecutor" level="debug" />
+  <logger name="org.eximeebpms.bpm.engine.context" level="debug" />
+  <logger name="org.eximeebpms.bpm.engine.core" level="debug" />
+  <logger name="org.eximeebpms.bpm.engine.pvm" level="debug" />
+
+  <logger name="org.eximeebpms.bpm.engine.metrics" level="debug" />
+  <logger name="org.eximeebpms.bpm.engine.util" level="debug" />
+
+  <logger name="org.eximeebpms.bpm.application" level="debug" />
+  <logger name="org.eximeebpms.bpm.container" level="debug" />
+-->
+
+  <root level="debug">
+    <appender-ref ref="STDOUT" />
+  </root>
+
+</configuration>

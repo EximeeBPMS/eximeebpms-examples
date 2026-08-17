@@ -1,0 +1,93 @@
+<?xml version="1.0"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.    apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.eximeebpms.bpm.example</groupId>
+  <artifactId>eximeebpms-bpm-examples-reactor</artifactId>
+  <packaging>pom</packaging>
+  <version>1.0.0</version>
+
+  <profiles>
+    <profile>
+      <id>default</id>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
+      <modules>
+        <module>bpmn-model-api/generate-process-fluent-api</module>
+        <module>bpmn-model-api/parse-bpmn</module>
+        <module>clients/java/order-handling</module>
+        <module>cockpit/cockpit-fullstack-count-processes</module>
+        <!-- spring-servlet-pa-tomcat excluded: rebranded, but its eximeebpms-bpm-tomcat
+             zip dependency's own transitive war/tar.gz sub-artifacts (eximeebpms-tomcat-assembly,
+             eximeebpms-webapp-tomcat-jakarta, eximeebpms-example-invoice-jakarta) aren't published
+             to Maven Central - same true of the real Camunda upstream's equivalent sub-artifacts.
+             Fully resolvable only from EximeeBPMS's own internal Nexus. -->
+        <!-- <module>deployment/spring-servlet-pa-tomcat</module> -->
+        <!-- spring-servlet-pa-wildfly excluded: rebranded and functionally verified up to a
+             point - its eximeebpms-bpm-wildfly zip DOES fully resolve and unpack from Central,
+             and a real managed WildFly 35.0.0.Final genuinely starts and deploys several
+             correctly-eximeebpms-branded WARs (welcome, engine-rest, webapp, example-invoice).
+             Only this module's own test WAR fails deployment, due to a pre-existing upstream bug
+             (confirmed present identically in the still-excluded spring-servlet-pa-tomcat sibling
+             too, so not introduced by this rebrand): processes.xml's xsi:schemaLocation is
+             self-referencing (points the schema location at the namespace URI itself instead of
+             a real XSD), which a real container's strict schema-validating deployment unit
+             processor rejects - never exercised by any embedded-engine test in this repo, only by
+             a live Arquillian-managed deployment. See docs-camunda-repository-references.md. -->
+        <!-- <module>deployment/spring-servlet-pa-wildfly</module> -->
+        <!-- spring-wildfly-non-pa: present on disk but not in upstream Camunda's own reactor
+             module list either; added here for consistent build coverage -->
+        <module>deployment/spring-wildfly-non-pa</module>
+        <module>deployment/servlet-pa</module>
+        <module>deployment/embedded-spring-rest</module>
+        <module>deployment/ejb-pa-jakarta</module>
+        <module>dmn-engine/dmn-engine-drg</module>
+        <module>dmn-engine/dmn-engine-java-main-method</module>
+        <!-- migrate-on-deployment: present on disk but not in upstream Camunda's own
+             reactor module list either; added here for consistent build coverage -->
+        <module>migration/migrate-on-deployment</module>
+        <module>multi-tenancy/schema-isolation</module>
+        <module>multi-tenancy/tenant-identifier-embedded</module>
+        <module>multi-tenancy/tenant-identifier-shared</module>
+        <module>multi-tenancy/tenant-identifier-shared-definitions</module>
+        <module>process-engine-plugin/bpmn-parse-listener</module>
+        <module>process-engine-plugin/command-interceptor-blocking</module>
+        <module>process-engine-plugin/custom-history-level</module>
+        <module>process-engine-plugin/failed-job-retry-profile</module>
+        <module>process-engine-plugin/handling-jpa-variables</module>
+        <module>quarkus-extension/datasource-example</module>
+        <module>quarkus-extension/spin-plugin-example</module>
+        <module>scripttask/xslt-scripttask</module>
+        <module>servicetask/service-invocation-asynchronous</module>
+        <module>servicetask/service-invocation-synchronous</module>
+        <module>servicetask/rest-service</module>
+        <module>spin/dataformat-configuration-global</module>
+        <module>spin/dataformat-configuration-in-process-application</module>
+        <!-- example-invoice dropped: genuinely EE-dependent (camunda-bpm-spring-boot-starter-webapp-ee,
+             EE BOM, EE nexus repository), same reasoning as example-webapp-ee -->
+        <module>spring-boot-starter/example-simple</module>
+        <module>spring-boot-starter/example-twitter</module>
+        <module>spring-boot-starter/example-web</module>
+        <module>spring-boot-starter/example-webapp</module>
+        <!-- example-webapp-ee dropped: the only EE-specific module in this repo;
+             eximeebpms-examples links to the OSS eximeebpms repo only (see
+             docs-camunda-repository-references.md) -->
+        <module>spring-boot-starter/external-task-client/loan-granting-spring-boot-webapp</module>
+        <module>startevent/message-start</module>
+        <module>testing/assert/job-announcement-publication-process</module>
+        <module>testing/junit5/eximeebpms-bpm-junit-assert</module>
+        <module>testing/junit5/eximeebpms-bpm-junit-use-engine</module>
+        <module>usertask/task-eximeebpms-forms</module>
+        <module>usertask/task-form-embedded</module>
+        <module>usertask/task-form-embedded-bpmn-events</module>
+        <module>usertask/task-form-embedded-json-variables</module>
+        <module>usertask/task-form-embedded-react</module>
+        <module>wildfly/jackson-annotations</module>
+      </modules>
+    </profile>
+    <!-- bump-versions profile / internal/version-bump module dropped: Camunda's own
+         internal release-tooling for their CI, not user-facing example content -->
+  </profiles>
+
+
+</project>

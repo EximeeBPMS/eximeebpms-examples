@@ -1,0 +1,8 @@
+# EximeeBPMS Process Engine and Spring Boot
+
+
+This example is not actively maintained anymore. You can refer to the [example with fixed version of Camunda 7.18](https://github.com/camunda/camunda-bpm-examples/blob/7.18/deployment/spring-boot).
+Due to EximeeBPMS backward compatibility, the examples usually still work with later versions. However, you
+might need to adjust them to make them work.
+
+Or have a look at EximeeBPMS's implementation of the Spring Boot Starter: [spring-boot-starter/example-simple](/spring-boot-starter/example-simple).

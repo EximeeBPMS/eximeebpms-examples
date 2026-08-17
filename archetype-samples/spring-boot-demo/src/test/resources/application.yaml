@@ -1,0 +1,9 @@
+# Test configuration using spring-boot
+
+eximeebpms.bpm:
+  job-execution.enabled: false
+
+spring.datasource:
+  url: jdbc:h2:mem:eximeebpms-spring-boot-test;DB_CLOSE_ON_EXIT=false
+
+spring.h2.console.enabled: true # http://localhost:8080/h2-console/

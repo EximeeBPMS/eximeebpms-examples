@@ -1,0 +1,32 @@
+project:
+  name: EximeeBPMS Mockito
+  description: Mockito extension for testing EximeeBPMS-based process applications
+  links:
+    homepage: https://eximeebpms.org
+  languages:
+    java:
+      groupId: org.eximeebpms.bpm.extension.mockito
+      version: '17'
+
+deploy:
+  maven:
+    mavenCentral:
+      MavenCentral:
+        active: RELEASE
+        applyMavenCentralRules: true
+        # Artifacts are already GPG-signed by maven-gpg-plugin during the build (release
+        # profile, verify phase) before staging - JReleaser doesn't need to sign anything
+        # itself, only upload what's already there. Matches the real eximeebpms pipeline
+        # and archetype-templates/assert-scenario's jreleaser.yml.
+        sign: false
+        # Upload only, don't auto-publish (default stage is FULL = upload + publish).
+        # The deployment sits in Central Publisher Portal awaiting manual confirmation:
+        # https://central.sonatype.com/publishing/deployments
+        stage: UPLOAD
+        url: https://central.sonatype.com/api/v1/publisher
+        stagingRepositories:
+          - target/staging-deploy
+        retryDelay: 30
+        maxRetries: 99
+    pomchecker:
+      strict: false

@@ -1,0 +1,50 @@
+EximeeBPMS Examples
+Copyright 2012-2025 the original authors and copyright holders listed below
+
+This product is a consolidation of the following originally-independent
+Camunda BPM example/archetype repositories, forked and rebranded for
+EximeeBPMS (see docs-camunda-repository-references.md in eximeebpms-factory
+for the full rebrand record):
+
+  examples/            <- camunda/camunda-bpm-examples
+                          Copyright 2013-2025 Camunda Services GmbH
+
+  archetype-templates/ <- camunda/camunda-archetypes
+                          Copyright 2012-2025 Camunda Services GmbH
+
+  archetype-samples/   <- camunda/camunda-bpm-archetype-{engine-plugin,
+                          cockpit-plugin,servlet-war,ejb-war,spring-boot,
+                          servlet-war-demo,spring-boot-demo}
+                          Copyright Camunda Services GmbH
+
+  assert-scenario/     <- camunda/camunda-bpm-assert-scenario
+                          (internally: camunda-platform-scenario)
+                          Originally developed by martin.schimak@plexiti.com
+                          (http://plexiti.com/)
+
+  mockito/             <- camunda-community-hub/camunda-platform-7-mockito
+                          (originally: camunda-bpm-mockito), forked at the
+                          5.15.0 tag
+                          Developed by Jan Galinski and Simon Zambrovski,
+                          Holisticon AG (http://holisticon.de)
+
+Each subdirectory retains its own LICENSE/NOTICE (or, for the seven
+archetype-samples/ projects, a License section in its own README.md) from
+its original source, per the Apache License 2.0's attribution requirements.
+All content is licensed under the Apache License, Version 2.0 (see LICENSE).
+
+Changes made: package/coordinate namespace rebranded from
+org.camunda/com.camunda to org.eximeebpms/com.eximeebpms throughout;
+Camunda-branded product references updated to EximeeBPMS where they refer
+to this rebranded platform (external/upstream references left unchanged);
+directories renamed and reorganized into the five groups above; CMMN
+example content and references removed, consistent with EximeeBPMS's own
+removal of CMMN support (see docs-camunda-repository-references.md in
+eximeebpms-factory); mockito/'s dependency on the third-party
+io.holunda.data:camunda-bpm-data library (itself compiled against the
+pre-rename engine and incompatible with it) removed, along with the two
+optional VariableFactory-typed convenience overloads that depended on it;
+mockito/'s Fake/Mock classes extended with a handful of interface methods
+(e.g. Task.hasComment/hasAttachment/getTaskState, DelegateTask.getLastUpdated,
+Execution.getProcessDefinitionKey) added to the engine after the forked
+5.15.0 release.

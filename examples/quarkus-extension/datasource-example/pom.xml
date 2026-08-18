@@ -11,7 +11,7 @@
   <properties>
     <version.eximeebpms>1.3.0</version.eximeebpms>
     <version.quarkus>3.27.0</version.quarkus>
-    <version.assertj>3.27.3</version.assertj>
+    <version.assertj>3.27.7</version.assertj>
     <compiler-plugin.version>3.14.0</compiler-plugin.version>
     <version.surefire-plugin>3.5.3</version.surefire-plugin>
 

@@ -7,9 +7,17 @@ name: Release Mockito
 # over several years) - there's no "upstream never stabilized" situation here, so the
 # first release should be a genuine 1.0.0, not an alpha.
 #
+# maven-release-plugin needs to push a version-bump commit and a tag directly to master.
+# master has a "changes must go through a pull request" repository rule (ruleset id
+# 20975287) - the default GITHUB_TOKEN (github-actions[bot]) has no bypass on it. The real
+# eximeebpms (engine) release pipeline hits the exact same rule on its own main branch and
+# solves it by authenticating as the "eximeebpmsrunner" GitHub App instead, which IS listed
+# as a bypass actor there - mirrored here rather than reinvented, once the same app is
+# granted access to this repo and added to this repo's own ruleset bypass list too.
+#
 # Same trimmed-down mechanics as release-archetypes.yml/release-assert-scenario.yml - see
 # release-archetypes.yml's header comment for what was deliberately left out (SBOM,
-# cosign, self-hosted runner, GitHub App token).
+# cosign, self-hosted runner).
 
 permissions:
   contents: write
@@ -35,8 +43,17 @@ jobs:
       run:
         working-directory: mockito
     steps:
+      - name: Generate eximeebpmsrunner app token
+        id: app-token
+        uses: actions/create-github-app-token@v3
+        with:
+          app-id: ${{ secrets.EXIMEEBPMSRUNNER_APP_ID }}
+          private-key: ${{ secrets.EXIMEEBPMSRUNNER_APP_PRIVATE_KEY }}
+
       - name: Check out the code
         uses: actions/checkout@v4
+        with:
+          token: ${{ steps.app-token.outputs.token }}
 
       - name: Set up JDK
         uses: actions/setup-java@v4
@@ -66,7 +83,7 @@ jobs:
         env:
           CPP_USERNAME: ${{ secrets.CPP_USERNAME }}
           CPP_PASSWORD: ${{ secrets.CPP_PASSWORD }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
 
       - name: Import GPG key
         run: |
@@ -80,17 +97,6 @@ jobs:
           git config --global user.name 'GitHub Actions'
           git config --global user.email 'github-actions@github.com'
 
-      - name: Configure Git remote for push
-        # maven-release-plugin pushes using the pom's scm connection URL (now https,
-        # not ssh - no SSH key exists on the runner), but still needs credentials on
-        # that remote. actions/checkout persists a token-authenticated origin remote
-        # for its own use; re-apply the same token explicitly here so the release
-        # plugin's own git push (which touches origin) is authenticated too.
-        run: |
-          git remote set-url origin "https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
       - name: Release prepare
         run: |
           mvn release:prepare -B --settings ~/.m2-release/settings.xml \
@@ -100,14 +106,14 @@ jobs:
             -DdevelopmentVersion=${{ github.event.inputs.development_version }}-SNAPSHOT
         env:
           GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
 
       - name: Release perform (checkout the tag only, no deploy yet)
         run: |
           mvn release:perform --settings ~/.m2-release/settings.xml -Dgoals="" \
             -Darguments="-DskipTests"
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
 
       - name: Deploy (stage locally, no network)
         run: |
@@ -116,7 +122,7 @@ jobs:
             -DaltDeploymentRepository=local::file:$(pwd)/target/staging-deploy
         env:
           GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
 
       - name: Publish staged artifacts to Maven Central (JReleaser)
         uses: jreleaser/release-action@v2

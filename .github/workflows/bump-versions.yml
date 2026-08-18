@@ -85,3 +85,5 @@ jobs:
           base: main
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+# (no functional change - re-saved to force GitHub Actions to (re-)discover this workflow file)

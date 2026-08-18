@@ -111,7 +111,6 @@
       <scope>test</scope>
     </dependency>
 
-    <!-- not yet published anywhere; matches eximeebpms-bpm-assert-scenario's current local SNAPSHOT build -->
     <dependency>
       <groupId>org.eximeebpms.bpm.extension</groupId>
       <artifactId>eximeebpms-bpm-assert-scenario</artifactId>

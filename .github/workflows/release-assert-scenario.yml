@@ -121,8 +121,14 @@ jobs:
           GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
 
       - name: Deploy (stage locally, no network)
+        # release:perform clones the whole eximeebpms-examples monorepo into
+        # target/checkout (assert-scenario's scm points at the repo, not a standalone
+        # assert-scenario-only repo) - the actual project lives one level down, at
+        # target/checkout/assert-scenario, same path release:perform's own internal
+        # "run-perform-goals" phase already uses (see its log: "Invoking perform goals
+        # in directory .../assert-scenario/target/checkout/assert-scenario").
         run: |
-          cd target/checkout
+          cd target/checkout/assert-scenario
           mvn deploy -Prelease -B --settings ~/.m2-release/settings.xml -DskipTests \
             -DaltDeploymentRepository=local::file:$(pwd)/target/staging-deploy
         env:
@@ -133,7 +139,7 @@ jobs:
         uses: jreleaser/release-action@v2
         with:
           version: '1.19.0'
-          working-directory: assert-scenario/target/checkout
+          working-directory: assert-scenario/target/checkout/assert-scenario
           arguments: deploy
         env:
           JRELEASER_PROJECT_VERSION: ${{ github.event.inputs.release_version }}

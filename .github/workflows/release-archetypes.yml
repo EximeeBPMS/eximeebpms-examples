@@ -118,9 +118,14 @@ jobs:
           GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
 
       - name: Deploy (stage locally, no network)
+        # release:perform clones the whole eximeebpms-examples monorepo into
+        # target/checkout (archetype-templates's scm points at the repo, not a
+        # standalone archetype-templates-only repo) - the actual project lives one
+        # level down, at target/checkout/archetype-templates, same path
+        # release:perform's own internal "run-perform-goals" phase already uses.
         run: |
-          cd target/checkout
-          ../mvnw deploy -Prelease -B --settings ~/.m2-release/settings.xml -DskipTests \
+          cd target/checkout/archetype-templates
+          ./mvnw deploy -Prelease -B --settings ~/.m2-release/settings.xml -DskipTests \
             -DaltDeploymentRepository=local::file:$(pwd)/target/staging-deploy
         env:
           GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
@@ -130,7 +135,7 @@ jobs:
         uses: jreleaser/release-action@v2
         with:
           version: '1.19.0'
-          working-directory: archetype-templates/target/checkout
+          working-directory: archetype-templates/target/checkout/archetype-templates
           arguments: deploy
         env:
           JRELEASER_PROJECT_VERSION: ${{ github.event.inputs.release_version }}

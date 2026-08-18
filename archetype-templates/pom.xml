@@ -111,9 +111,9 @@
   </build>
 
   <scm>
-    <connection>scm:git:ssh://git@github.com/eximeebpms/eximeebpms-examples.git</connection>
-    <developerConnection>scm:git:ssh://git@github.com/eximeebpms/eximeebpms-examples.git</developerConnection>
-    <url>https://github.com/eximeebpms/eximeebpms-examples</url>
+    <connection>scm:git:https://github.com/EximeeBPMS/eximeebpms-examples.git</connection>
+    <developerConnection>scm:git:https://github.com/EximeeBPMS/eximeebpms-examples.git</developerConnection>
+    <url>https://github.com/EximeeBPMS/eximeebpms-examples</url>
     <tag>HEAD</tag>
   </scm>
 

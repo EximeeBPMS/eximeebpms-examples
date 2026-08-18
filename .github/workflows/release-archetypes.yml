@@ -82,6 +82,17 @@ jobs:
           git config --global user.name 'GitHub Actions'
           git config --global user.email 'github-actions@github.com'
 
+      - name: Configure Git remote for push
+        # maven-release-plugin pushes using the pom's scm connection URL (now https,
+        # not ssh - no SSH key exists on the runner), but still needs credentials on
+        # that remote. actions/checkout persists a token-authenticated origin remote
+        # for its own use; re-apply the same token explicitly here so the release
+        # plugin's own git push (which touches origin) is authenticated too.
+        run: |
+          git remote set-url origin "https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Release prepare
         run: |
           ./mvnw release:prepare -B --settings ~/.m2-release/settings.xml \

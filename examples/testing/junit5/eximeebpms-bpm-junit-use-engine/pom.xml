@@ -10,7 +10,7 @@
     <version.junit>5.11.4</version.junit>
     <version.h2>2.3.232</version.h2>
     <version.assertj>3.27.6</version.assertj>
-    <version.logback>1.2.11</version.logback>
+    <version.logback>1.2.13</version.logback>
 
     <maven.compiler.release>17</maven.compiler.release>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

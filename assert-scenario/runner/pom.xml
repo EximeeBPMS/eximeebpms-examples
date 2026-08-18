@@ -5,6 +5,8 @@
     <groupId>org.eximeebpms.bpm.extension.scenario</groupId>
     <artifactId>eximeebpms-platform-scenario-runner</artifactId>
 
+    <name>eximeebpms-platform-scenario-runner</name>
+
     <url>https://github.com/eximeebpms/eximeebpms-examples</url>
 
     <description>EximeeBPMS Platform Scenarios allow you to specify the actions

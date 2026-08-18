@@ -15,6 +15,7 @@
       <modules>
         <module>bpmn-model-api/generate-process-fluent-api</module>
         <module>bpmn-model-api/parse-bpmn</module>
+        <module>businessruletask/order-confirmation-rules</module>
         <module>clients/java/order-handling</module>
         <module>cockpit/cockpit-fullstack-count-processes</module>
         <!-- spring-servlet-pa-tomcat excluded: rebranded, but its eximeebpms-bpm-tomcat

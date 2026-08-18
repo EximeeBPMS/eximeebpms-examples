@@ -28,6 +28,13 @@ for the full rebrand record):
                           Developed by Jan Galinski and Simon Zambrovski,
                           Holisticon AG (http://holisticon.de)
 
+  examples/businessruletask/order-confirmation-rules/
+                          <- camunda/camunda-consulting,
+                          one-time-examples/order-confirmation-rules
+                          Copyright Camunda Services GmbH
+                          Originally presented at WJAX 2011
+                          (see the module's own README.md)
+
 Each subdirectory retains its own LICENSE/NOTICE (or, for the seven
 archetype-samples/ projects, a License section in its own README.md) from
 its original source, per the Apache License 2.0's attribution requirements.

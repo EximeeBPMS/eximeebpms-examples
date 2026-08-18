@@ -18,7 +18,7 @@
     <parent>
         <groupId>org.eximeebpms.bpm.extension.scenario.project</groupId>
         <artifactId>eximeebpms-platform-scenario-root</artifactId>
-        <version>1.0.0-SNAPSHOT</version>
+        <version>1.0.0-alpha.1</version>
     </parent>
 
     <dependencies>

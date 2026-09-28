@@ -48,7 +48,7 @@ We will walk through the important aspects of developing the server-side parts o
 
 ### Plug-in Archive
 
-As a first step we create a maven jar project that represents our plug-in library. Inside the projects `pom.xml` we must declare a dependency to the EximeeBPMS webapp with the maven coordinates `org.eximeebpms.bpm.webapp:eximeebpms-webapp`. The project contains all the infrastructure necessary to create and test the server-side parts of a plug-in.
+As a first step we create a maven jar project that represents our plug-in library. Inside the projects `pom.xml` we must declare a dependency to the EximeeBPMS webapp with the maven coordinates `org.eximeebpms.bpm.webapp:eximeebpms-webapp-jakarta`. The project contains all the infrastructure necessary to create and test the server-side parts of a plug-in.
 
 ```xml
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -64,7 +64,7 @@ As a first step we create a maven jar project that represents our plug-in librar
   <dependencies>
     <dependency>
       <groupId>org.eximeebpms.bpm.webapp</groupId>
-      <artifactId>eximeebpms-webapp</artifactId>
+      <artifactId>eximeebpms-webapp-jakarta</artifactId>
       <classifier>classes</classifier>
       <version>${eximeebpms.version}</version>
     </dependency>

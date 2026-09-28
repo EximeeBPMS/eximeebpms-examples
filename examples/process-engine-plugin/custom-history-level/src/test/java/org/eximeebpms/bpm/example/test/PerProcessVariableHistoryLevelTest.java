@@ -26,8 +26,8 @@ import org.eximeebpms.bpm.engine.test.Deployment;
 import org.eximeebpms.bpm.engine.test.ProcessEngineRule;
 import org.eximeebpms.bpm.model.bpmn.BpmnModelInstance;
 import org.eximeebpms.bpm.model.bpmn.instance.Process;
-import org.eximeebpms.bpm.model.bpmn.instance.eximeebpms.CamundaProperties;
-import org.eximeebpms.bpm.model.bpmn.instance.eximeebpms.CamundaProperty;
+import org.eximeebpms.bpm.model.bpmn.instance.eximeebpms.EximeeBpmsProperties;
+import org.eximeebpms.bpm.model.bpmn.instance.eximeebpms.EximeeBpmsProperty;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -118,10 +118,10 @@ public class PerProcessVariableHistoryLevelTest {
     String processDefinitionId = repositoryService.createProcessDefinitionQuery().singleResult().getId();
     BpmnModelInstance modelInstance = repositoryService.getBpmnModelInstance(processDefinitionId);
     Process process = (Process) modelInstance.getDefinitions().getUniqueChildElementByType(Process.class);
-    CamundaProperties camundaProperties = process.getExtensionElements().getElementsQuery().filterByType(CamundaProperties.class).singleResult();
-    for (CamundaProperty camundaProperty : camundaProperties.getCamundaProperties()) {
-      if (camundaProperty.getCamundaName().equals("history")) {
-        camundaProperty.setCamundaValue("none");
+    EximeeBpmsProperties camundaProperties = process.getExtensionElements().getElementsQuery().filterByType(EximeeBpmsProperties.class).singleResult();
+    for (EximeeBpmsProperty camundaProperty : camundaProperties.getEximeeBpmsProperties()) {
+      if (camundaProperty.getEximeeBpmsName().equals("history")) {
+        camundaProperty.setEximeeBpmsValue("none");
       }
     }
     repositoryService.createDeployment().addModelInstance("process.bpmn", modelInstance).deploy();

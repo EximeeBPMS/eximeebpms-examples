@@ -5,3 +5,8 @@ eximeebpms.bpm:
 
 spring.datasource:
   url: jdbc:h2:mem:eximeebpms-spring-boot-test;DB_CLOSE_ON_EXIT=false
+
+# Replaces src/main/resources/application.yaml for tests, so it has to repeat
+# the monitor properties set there (see the comment in that file, BPMS-797).
+eximeebpms.monitoring.snapshot.enabled: true
+eximeebpms.monitoring.snapshot.updateRate: 10000

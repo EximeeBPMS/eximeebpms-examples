@@ -10,7 +10,7 @@
   <name>Service Invocation - REST</name>
 
   <properties>
-    <version.eximeebpms>1.3.0</version.eximeebpms>
+    <version.eximeebpms>1.4.0</version.eximeebpms>
     <version.graal.js>25.2.4</version.graal.js>
     <version.junit>4.13.1</version.junit>
     <version.h2>2.3.232</version.h2>

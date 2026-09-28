@@ -2,10 +2,10 @@ package org.eximeebpms.bpm.demo.orderconfirmation.bean;
 
 import java.io.Serializable;
 
-import javax.ejb.EJB;
-import javax.enterprise.context.SessionScoped;
-import javax.enterprise.inject.Produces;
-import javax.inject.Named;
+import jakarta.ejb.EJB;
+import jakarta.enterprise.context.SessionScoped;
+import jakarta.enterprise.inject.Produces;
+import jakarta.inject.Named;
 
 import org.eximeebpms.bpm.demo.orderconfirmation.model.Order;
 import org.eximeebpms.bpm.demo.orderconfirmation.model.TransientOrder;

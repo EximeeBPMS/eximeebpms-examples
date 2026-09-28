@@ -59,8 +59,8 @@ public class RestProcessEngineDeployment extends Application {
   public Set<Class<?>> getClasses() {
     Set<Class<?>> classes = new HashSet<>();
 
-    classes.addAll(CamundaRestResources.getResourceClasses());
-    classes.addAll(CamundaRestResources.getConfigurationClasses());
+    classes.addAll(EximeeBpmsRestResources.getResourceClasses());
+    classes.addAll(EximeeBpmsRestResources.getConfigurationClasses());
 
     return classes;
   }

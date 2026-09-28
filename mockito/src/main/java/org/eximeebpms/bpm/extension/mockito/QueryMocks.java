@@ -1,7 +1,6 @@
 package org.eximeebpms.bpm.extension.mockito;
 
 import org.eximeebpms.bpm.engine.AuthorizationService;
-import org.eximeebpms.bpm.engine.CaseService;
 import org.eximeebpms.bpm.engine.ExternalTaskService;
 import org.eximeebpms.bpm.engine.FilterService;
 import org.eximeebpms.bpm.engine.HistoryService;
@@ -14,9 +13,6 @@ import org.eximeebpms.bpm.extension.mockito.query.ActivityStatisticsQueryMock;
 import org.eximeebpms.bpm.extension.mockito.query.AuthorizationQueryMock;
 import org.eximeebpms.bpm.extension.mockito.query.BatchQueryMock;
 import org.eximeebpms.bpm.extension.mockito.query.BatchStatisticsQueryMock;
-import org.eximeebpms.bpm.extension.mockito.query.CaseDefinitionQueryMock;
-import org.eximeebpms.bpm.extension.mockito.query.CaseExecutionQueryMock;
-import org.eximeebpms.bpm.extension.mockito.query.CaseInstanceQueryMock;
 import org.eximeebpms.bpm.extension.mockito.query.DecisionDefinitionQueryMock;
 import org.eximeebpms.bpm.extension.mockito.query.DeploymentQueryMock;
 import org.eximeebpms.bpm.extension.mockito.query.DeploymentStatisticsQueryMock;
@@ -28,8 +24,6 @@ import org.eximeebpms.bpm.extension.mockito.query.GroupQueryMock;
 import org.eximeebpms.bpm.extension.mockito.query.HistoricActivityInstanceQueryMock;
 import org.eximeebpms.bpm.extension.mockito.query.HistoricActivityStatisticsQueryMock;
 import org.eximeebpms.bpm.extension.mockito.query.HistoricBatchQueryMock;
-import org.eximeebpms.bpm.extension.mockito.query.HistoricCaseActivityInstanceQueryMock;
-import org.eximeebpms.bpm.extension.mockito.query.HistoricCaseInstanceQueryMock;
 import org.eximeebpms.bpm.extension.mockito.query.HistoricDecisionInstanceQueryMock;
 import org.eximeebpms.bpm.extension.mockito.query.HistoricDetailQueryMock;
 import org.eximeebpms.bpm.extension.mockito.query.HistoricIdentityLinkLogQueryMock;
@@ -62,14 +56,6 @@ public enum QueryMocks {
     return new TaskQueryMock().forService(serviceMock);
   }
 
-  public static CaseInstanceQueryMock mockCaseInstanceQuery(final CaseService serviceMock) {
-    return new CaseInstanceQueryMock().forService(serviceMock);
-  }
-
-  public static CaseExecutionQueryMock mockCaseExecutionQuery(final CaseService serviceMock) {
-    return new CaseExecutionQueryMock().forService(serviceMock);
-  }
-
   public static ExecutionQueryMock mockExecutionQuery(final RuntimeService serviceMock) {
     return new ExecutionQueryMock().forService(serviceMock);
   }
@@ -92,10 +78,6 @@ public enum QueryMocks {
 
   public static ProcessDefinitionQueryMock mockProcessDefinitionQuery(final RepositoryService serviceMock) {
     return new ProcessDefinitionQueryMock().forService(serviceMock);
-  }
-
-  public static CaseDefinitionQueryMock mockCaseDefinitionQuery(final RepositoryService serviceMock) {
-    return new CaseDefinitionQueryMock().forService(serviceMock);
   }
 
   public static DecisionDefinitionQueryMock mockDecisionDefinitionQuery(final RepositoryService serviceMock) {
@@ -126,10 +108,6 @@ public enum QueryMocks {
     return new HistoricVariableInstanceQueryMock().forService(serviceMock);
   }
 
-  public static HistoricCaseActivityInstanceQueryMock mockHistoricCaseActivityInstanceQuery(final HistoryService serviceMock) {
-    return new HistoricCaseActivityInstanceQueryMock().forService(serviceMock);
-  }
-
   public static HistoricDecisionInstanceQueryMock mockHistoricDecisionInstanceQuery(final HistoryService serviceMock) {
     return new HistoricDecisionInstanceQueryMock().forService(serviceMock);
   }
@@ -148,10 +126,6 @@ public enum QueryMocks {
 
   public static HistoricIncidentQueryMock mockHistoricIncidentQuery(final HistoryService serviceMock) {
     return new HistoricIncidentQueryMock().forService(serviceMock);
-  }
-
-  public static HistoricCaseInstanceQueryMock mockHistoricCaseInstanceQuery(final HistoryService serviceMock) {
-    return new HistoricCaseInstanceQueryMock().forService(serviceMock);
   }
 
   public static HistoricJobLogQueryMock mockHistoricJobLogQuery(final HistoryService serviceMock) {

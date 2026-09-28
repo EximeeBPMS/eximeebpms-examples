@@ -21,7 +21,7 @@ import java.util.Set;
 
 import jakarta.ws.rs.core.Application;
 
-import org.eximeebpms.bpm.engine.rest.impl.CamundaRestResources;
+import org.eximeebpms.bpm.engine.rest.impl.EximeeBpmsRestResources;
 
 public class RestProcessEngineDeployment extends Application {
 
@@ -29,8 +29,8 @@ public class RestProcessEngineDeployment extends Application {
   public Set<Class<?>> getClasses() {
     Set<Class<?>> classes = new HashSet<>();
 
-    classes.addAll(CamundaRestResources.getResourceClasses());
-    classes.addAll(CamundaRestResources.getConfigurationClasses());
+    classes.addAll(EximeeBpmsRestResources.getResourceClasses());
+    classes.addAll(EximeeBpmsRestResources.getConfigurationClasses());
 
     return classes;
   }

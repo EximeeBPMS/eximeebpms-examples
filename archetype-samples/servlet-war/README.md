@@ -62,7 +62,7 @@ and inspect it using
 [EximeeBPMS Cockpit](https://docs.eximeebpms.org/manual/latest/webapps/cockpit/).
 
 ## Environment Restrictions
-Built and tested against EximeeBPMS version 1.3.0.
+Built and tested against EximeeBPMS version 1.4.0.
 
 ## Known Limitations
 

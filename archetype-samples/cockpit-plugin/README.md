@@ -24,7 +24,7 @@ Discover more Cockpit plugins in the
 [EximeeBPMS Cockpit examples](../../examples/cockpit)
 
 ## Environment Restrictions
-Built and tested against EximeeBPMS version 1.3.0.
+Built and tested against EximeeBPMS version 1.4.0.
 
 ## License
 [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0).

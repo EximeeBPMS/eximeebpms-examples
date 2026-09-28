@@ -116,7 +116,7 @@ public class CallActivityMock {
    */
   public CallActivityMock onExecutionDo(final String serviceId, final Consumer<DelegateExecution> consumer) {
     flowNodeBuilder = flowNodeBuilder.serviceTask(serviceId)
-      .camundaDelegateExpression("${id}".replace("id", serviceId));
+      .eximeeBpmsDelegateExpression("${id}".replace("id", serviceId));
 
     registerJavaDelegateMock(serviceId, (JavaDelegate) consumer::accept);
     return this;

@@ -1,6 +1,6 @@
 package org.eximeebpms.bpm.demo.orderconfirmation.bean;
 
-import javax.inject.Named;
+import jakarta.inject.Named;
 
 import org.eximeebpms.bpm.demo.orderconfirmation.model.Order;
 

@@ -17,7 +17,7 @@
 package org.eximeebpms.bpm.quarkus.example;
 
 import org.eximeebpms.bpm.engine.RepositoryService;
-import org.eximeebpms.bpm.quarkus.engine.extension.event.CamundaEngineStartupEvent;
+import org.eximeebpms.bpm.quarkus.engine.extension.event.EximeeBpmsEngineStartupEvent;
 import org.jboss.logging.Logger;
 
 import jakarta.enterprise.context.ApplicationScoped;
@@ -32,7 +32,7 @@ public class ResourceDeployment {
   @Inject
   protected RepositoryService repositoryService;
 
-  public void createDeployment(@Observes CamundaEngineStartupEvent event) {
+  public void createDeployment(@Observes EximeeBpmsEngineStartupEvent event) {
     String deploymentId = repositoryService.createDeployment()
         .name("example-deployment")
         .addClasspathResource("process.bpmn")

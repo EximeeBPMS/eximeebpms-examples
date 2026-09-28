@@ -3,10 +3,10 @@ package org.eximeebpms.bpm.demo.orderconfirmation.config;
 import org.eximeebpms.bpm.demo.orderconfirmation.bean.RuleEntryDAO;
 import org.eximeebpms.bpm.demo.orderconfirmation.model.DiscountRuleEntry;
 
-import javax.annotation.PostConstruct;
-import javax.ejb.Singleton;
-import javax.ejb.Startup;
-import javax.inject.Inject;
+import jakarta.annotation.PostConstruct;
+import jakarta.ejb.Singleton;
+import jakarta.ejb.Startup;
+import jakarta.inject.Inject;
 import java.util.List;
 import java.util.logging.Logger;
 

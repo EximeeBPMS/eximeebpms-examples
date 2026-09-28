@@ -3,9 +3,9 @@ package org.eximeebpms.bpm.demo.orderconfirmation.bean;
 import java.io.InputStream;
 import java.util.List;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
-import javax.inject.Named;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 
 import org.drools.KnowledgeBase;
 import org.drools.builder.KnowledgeBuilder;

@@ -2,11 +2,11 @@ package org.eximeebpms.bpm.demo.orderconfirmation.bean;
 
 import java.util.List;
 
-import javax.ejb.Stateless;
-import javax.enterprise.inject.Produces;
-import javax.inject.Named;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import jakarta.ejb.Stateless;
+import jakarta.enterprise.inject.Produces;
+import jakarta.inject.Named;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 
 import org.eximeebpms.bpm.demo.orderconfirmation.model.DiscountRuleEntry;
 

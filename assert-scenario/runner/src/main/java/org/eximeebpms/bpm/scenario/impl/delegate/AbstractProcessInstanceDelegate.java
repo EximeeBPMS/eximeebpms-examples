@@ -27,10 +27,6 @@ public abstract class AbstractProcessInstanceDelegate extends WaitstateExecutabl
     return delegate.getBusinessKey();
   }
 
-  public String getCaseInstanceId() {
-    return delegate.getCaseInstanceId();
-  }
-
   public boolean isSuspended() {
     return delegate.isSuspended();
   }

@@ -1,6 +1,6 @@
 package org.eximeebpms.bpm.scenario.impl.delegate;
 
-import org.eximeebpms.bpm.engine.form.CamundaFormRef;
+import org.eximeebpms.bpm.engine.form.EximeeBpmsFormRef;
 import org.eximeebpms.bpm.engine.task.DelegationState;
 import org.eximeebpms.bpm.scenario.delegate.MockedCallActivityDelegate;
 import org.eximeebpms.bpm.scenario.delegate.TaskDelegate;
@@ -78,22 +78,6 @@ public abstract class AbstractMockedCallActivityDelegate implements MockedCallAc
     return delegate.getProcessDefinitionId();
   }
 
-  public String getCaseInstanceId() {
-    return delegate.getCaseInstanceId();
-  }
-
-  public void setCaseInstanceId(String caseInstanceId) {
-    delegate.setCaseInstanceId(caseInstanceId);
-  }
-
-  public String getCaseExecutionId() {
-    return delegate.getCaseExecutionId();
-  }
-
-  public String getCaseDefinitionId() {
-    return delegate.getCaseDefinitionId();
-  }
-
   public Date getCreateTime() {
     return delegate.getCreateTime();
   }
@@ -110,8 +94,8 @@ public abstract class AbstractMockedCallActivityDelegate implements MockedCallAc
     return delegate.getLastUpdated();
   }
 
-  public CamundaFormRef getCamundaFormRef() {
-    return delegate.getCamundaFormRef();
+  public EximeeBpmsFormRef getEximeeBpmsFormRef() {
+    return delegate.getEximeeBpmsFormRef();
   }
 
   public String getTaskState() {

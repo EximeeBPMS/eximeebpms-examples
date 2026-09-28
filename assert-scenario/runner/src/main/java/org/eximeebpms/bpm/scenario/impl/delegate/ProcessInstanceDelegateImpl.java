@@ -54,11 +54,6 @@ public class ProcessInstanceDelegateImpl extends AbstractDelegate<ProcessInstanc
   }
 
   @Override
-  public String getCaseInstanceId() {
-    return delegate.getCaseInstanceId();
-  }
-
-  @Override
   public boolean isSuspended() {
     return delegate.isSuspended();
   }

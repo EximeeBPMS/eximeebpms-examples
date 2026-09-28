@@ -355,4 +355,4 @@ Follow the steps to run the test:
   * [standalone.xml](standalone.xml) (two schemas - requires manual schema creation) or 
   * [standalone_test.xml](standalone_test.xml) (two databases - auto schema creation)
 * Start the server.
-* Go to the project directory and run the test with the Maven command `mvn test`
+* Go to the project directory and run the test with the Maven command `mvn test -Pwildfly-remote`. Without the profile the test is skipped, so the module builds without a server.

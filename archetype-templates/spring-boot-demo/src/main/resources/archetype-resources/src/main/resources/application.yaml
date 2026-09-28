@@ -21,3 +21,11 @@ eximeebpms.bpm.job-execution:
 #   deployment-aware: true
    wait-time-in-millis: 5000
    max-wait: 10000
+
+# eximeebpms-bpm-spring-boot-monitor (pulled in by the REST starter) ships
+# these defaults in classpath:library.properties, but the FEEL engine's
+# shaded Scala jar has a file of the same name and usually wins the lookup,
+# so the placeholders stay unresolved and the application fails to start.
+# Values match the monitor's own defaults. Remove once BPMS-797 is fixed.
+eximeebpms.monitoring.snapshot.enabled: true
+eximeebpms.monitoring.snapshot.updateRate: 10000

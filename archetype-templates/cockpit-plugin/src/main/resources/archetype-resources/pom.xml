@@ -52,7 +52,7 @@
     <dependency>
       <!-- Cockpit Plugin API, needs to be provided -->
       <groupId>org.eximeebpms.bpm.webapp</groupId>
-      <artifactId>eximeebpms-webapp</artifactId>
+      <artifactId>eximeebpms-webapp-jakarta</artifactId>
       <classifier>classes</classifier>
       <!-- not part of eximeebpms bom -->
       <version>${eximeebpms.version}</version>

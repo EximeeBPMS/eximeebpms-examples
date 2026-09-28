@@ -45,7 +45,7 @@
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
     <version.assertj-core>3.26.3</version.assertj-core>
-    <version.eximeebpms>1.3.0</version.eximeebpms>
+    <version.eximeebpms>1.4.0</version.eximeebpms>
     <!-- eximeebpms-bpm-assert-scenario is forked (docs-camunda-repository-references.md,
          part of the eximeebpms-examples consolidation); published to Maven Central as an
          alpha (assert-scenario-v1.0.0-alpha.1 release) -->

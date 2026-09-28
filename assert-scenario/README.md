@@ -154,7 +154,7 @@ necessary to create this particular scenario!
 
 ## Just start to use it!
 
-EximeeBPMS Platform Scenario is built and tested against EximeeBPMS version 1.3.0.
+EximeeBPMS Platform Scenario is built and tested against EximeeBPMS version 1.4.0.
 
 ## Get started in _3 simple steps_!
 

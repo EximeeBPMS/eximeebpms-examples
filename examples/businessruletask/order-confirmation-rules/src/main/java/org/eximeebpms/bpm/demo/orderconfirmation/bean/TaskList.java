@@ -3,9 +3,9 @@ package org.eximeebpms.bpm.demo.orderconfirmation.bean;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.enterprise.context.SessionScoped;
-import javax.inject.Inject;
-import javax.inject.Named;
+import jakarta.enterprise.context.SessionScoped;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 
 import org.eximeebpms.bpm.engine.FormService;
 import org.eximeebpms.bpm.engine.TaskService;

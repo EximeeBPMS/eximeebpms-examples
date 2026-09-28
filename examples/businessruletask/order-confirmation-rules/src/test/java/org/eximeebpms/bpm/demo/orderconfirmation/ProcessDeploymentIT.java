@@ -12,9 +12,9 @@ import org.jboss.shrinkwrap.resolver.api.maven.Maven;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import javax.inject.Inject;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import jakarta.inject.Inject;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 
 import static org.fest.assertions.api.Assertions.assertThat;
 
@@ -25,7 +25,6 @@ public class ProcessDeploymentIT {
     public static WebArchive createDeployment() {
 
       File[] libs = Maven.resolver()
-          .offline(false)
           .loadPomFromFile("pom.xml")
           .importRuntimeAndTestDependencies().resolve().withTransitivity().asFile();
 

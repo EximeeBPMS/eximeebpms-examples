@@ -14,14 +14,14 @@
   <url></url>
 
   <properties>
-    <eximeebpms.version>1.3.0</eximeebpms.version>
+    <eximeebpms.version>1.4.0</eximeebpms.version>
 
     <!-- This property must be present for the pom.xml to be recognized as a plugin -->
     <eximeebpms.plugin.category>Please select one of Sample|Monitoring|Exploration|Business</eximeebpms.plugin.category>
 
     <eximeebpms.plugin.screenshot>screenshot.png</eximeebpms.plugin.screenshot>
     <!-- <eximeebpms.plugin.screenshot.1>screenshot2.png</eximeebpms.plugin.screenshot.1> -->
-    <eximeebpms.plugin.testedOnVersion>1.3.0</eximeebpms.plugin.testedOnVersion>
+    <eximeebpms.plugin.testedOnVersion>1.4.0</eximeebpms.plugin.testedOnVersion>
     <!-- <eximeebpms.plugin.exampleProcessApplicationUrl></eximeebpms.plugin.exampleProcessApplicationUrl> -->
     <eximeebpms.plugin.language>EN</eximeebpms.plugin.language>
 
@@ -52,7 +52,7 @@
     <dependency>
       <!-- Cockpit Plugin API, needs to be provided -->
       <groupId>org.eximeebpms.bpm.webapp</groupId>
-      <artifactId>eximeebpms-webapp</artifactId>
+      <artifactId>eximeebpms-webapp-jakarta</artifactId>
       <classifier>classes</classifier>
       <!-- not part of eximeebpms bom -->
       <version>${eximeebpms.version}</version>

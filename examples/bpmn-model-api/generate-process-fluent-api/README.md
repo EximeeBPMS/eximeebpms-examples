@@ -67,17 +67,17 @@ BpmnModelInstance modelInstance = Bpmn.createExecutableProcess()
   .[...]
   .userTask()
     .name("Assign Approver")
-    .camundaAssignee("demo")
+    .eximeeBpmsAssignee("demo")
   .userTask()
     .id("approveInvoice")
     .name("Approve Invoice")
   .[...]
   .userTask()
     .name("Prepare Bank Transfer")
-    .camundaCandidateGroups("accounting")
+    .eximeeBpmsCandidateGroups("accounting")
   .serviceTask()
     .name("Archive Invoice")
-    .camundaClass("org.eximeebpms.bpm.example.invoice.service.ArchiveInvoiceService")
+    .eximeeBpmsClass("org.eximeebpms.bpm.example.invoice.service.ArchiveInvoiceService")
   .[...]
   .done();
 ```
@@ -98,7 +98,7 @@ BpmnModelInstance modelInstance = Bpmn.createExecutableProcess()
   .condition("yes", "${approved}")
   .userTask()
     .name("Prepare Bank Transfer")
-    .camundaCandidateGroups("accounting")
+    .eximeeBpmsCandidateGroups("accounting")
   .[...]
   .done();
 ```
@@ -122,17 +122,17 @@ BpmnModelInstance modelInstance = Bpmn.createExecutableProcess()
   .condition("yes", "${approved}")
   .userTask()
     .name("Prepare Bank Transfer")
-    .camundaCandidateGroups("accounting")
+    .eximeeBpmsCandidateGroups("accounting")
   .serviceTask()
     .name("Archive Invoice")
-    .camundaClass("org.eximeebpms.bpm.example.invoice.service.ArchiveInvoiceService")
+    .eximeeBpmsClass("org.eximeebpms.bpm.example.invoice.service.ArchiveInvoiceService")
   .endEvent()
     .name("Invoice processed")
   .moveToLastGateway()
   .condition("no", "${!approved}")
   .userTask()
     .name("Review Invoice")
-    .camundaAssignee("demo")
+    .eximeeBpmsAssignee("demo")
   .[...]
   .done();
 ```
@@ -149,7 +149,7 @@ BpmnModelInstance modelInstance = Bpmn.createExecutableProcess()
   .userTask()
     .id("approveInvoice")
     .name("Approve Invoice")
-    .camundaAssignee("${approver}")
+    .eximeeBpmsAssignee("${approver}")
   .[...]
   .exclusiveGateway()
     .name("Review successful?")

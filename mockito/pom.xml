@@ -15,7 +15,7 @@
     <version.java>17</version.java>
     <java.version>${version.java}</java.version>
 
-    <eximeebpms.version>1.3.0</eximeebpms.version>
+    <eximeebpms.version>1.4.0</eximeebpms.version>
 
     <slf4j.version>1.7.36</slf4j.version>
     <commons-lang3.version>3.17.0</commons-lang3.version>

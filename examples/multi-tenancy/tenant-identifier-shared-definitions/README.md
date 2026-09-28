@@ -30,11 +30,6 @@ public class CustomTenantIdProvider implements TenantIdProvider {
   }
 
   @Override
-  public String provideTenantIdForCaseInstance(TenantIdProviderCaseInstanceContext ctx) {
-    return getTenantIdOfCurrentAuthentication();
-  }
-
-  @Override
   public String provideTenantIdForHistoricDecisionInstance(TenantIdProviderHistoricDecisionInstanceContext ctx) {
     return getTenantIdOfCurrentAuthentication();
   }

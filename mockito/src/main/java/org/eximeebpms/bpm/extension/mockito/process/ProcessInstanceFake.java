@@ -11,7 +11,6 @@ public class ProcessInstanceFake implements ProcessInstance {
 
   private final String processDefinitionId;
   private final String tenantId;
-  private final String caseInstanceId;
 
   private boolean ended;
   private boolean suspended;
@@ -21,14 +20,13 @@ public class ProcessInstanceFake implements ProcessInstance {
   }
 
   ProcessInstanceFake(String id, String businessKey, String processInstanceId, String rootProcessInstanceId, String processDefinitionId,
-                      String tenantId, String caseInstanceId, boolean ended, boolean suspended) {
+                      String tenantId, boolean ended, boolean suspended) {
     this.id = id;
     this.businessKey = businessKey;
     this.processInstanceId = processInstanceId;
     this.rootProcessInstanceId = rootProcessInstanceId;
     this.processDefinitionId = processDefinitionId;
     this.tenantId = tenantId;
-    this.caseInstanceId = caseInstanceId;
     this.ended = ended;
     this.suspended = suspended;
   }
@@ -55,11 +53,6 @@ public class ProcessInstanceFake implements ProcessInstance {
   @Override
   public String getRootProcessInstanceId() {
     return rootProcessInstanceId;
-  }
-
-  @Override
-  public String getCaseInstanceId() {
-    return caseInstanceId;
   }
 
   @Override
@@ -104,7 +97,6 @@ public class ProcessInstanceFake implements ProcessInstance {
       ", rootProcessInstanceId='" + rootProcessInstanceId + '\'' +
       ", processDefinitionId='" + processDefinitionId + '\'' +
       ", tenantId='" + tenantId + '\'' +
-      ", caseInstanceId='" + caseInstanceId + '\'' +
       ", ended=" + ended +
       ", suspended=" + suspended +
       '}';
@@ -117,7 +109,6 @@ public class ProcessInstanceFake implements ProcessInstance {
     private String rootProcessInstanceId;
     private String processDefinitionId;
     private String tenantId;
-    private String caseInstanceId;
     private boolean ended = false;
     private boolean suspended = false;
 
@@ -146,11 +137,6 @@ public class ProcessInstanceFake implements ProcessInstance {
       return this;
     }
 
-    public ProcessInstanceFakeBuilder caseInstanceId(String caseInstanceId) {
-      this.caseInstanceId = caseInstanceId;
-      return this;
-    }
-
     public ProcessInstanceFakeBuilder ended(boolean ended) {
       this.ended = ended;
       return this;
@@ -170,7 +156,6 @@ public class ProcessInstanceFake implements ProcessInstance {
         ", rootProcessInstanceId='" + rootProcessInstanceId + '\'' +
         ", processDefinitionId='" + processDefinitionId + '\'' +
         ", tenantId='" + tenantId + '\'' +
-        ", caseInstanceId='" + caseInstanceId + '\'' +
         ", ended=" + ended +
         ", suspended=" + suspended +
         '}';
@@ -184,7 +169,6 @@ public class ProcessInstanceFake implements ProcessInstance {
         rootProcessInstanceId,
         processDefinitionId,
         tenantId,
-        caseInstanceId,
         ended,
         suspended
       );

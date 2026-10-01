@@ -8,7 +8,7 @@
   <version>1.0-SNAPSHOT</version>
 
   <properties>
-    <version.eximeebpms>1.3.0</version.eximeebpms>
+    <version.eximeebpms>1.4.0</version.eximeebpms>
     <version.jakarta-ee-specs>11.0.0</version.jakarta-ee-specs>
     <version.maven-compiler-plugin>3.14.1</version.maven-compiler-plugin>
     <version.maven-war-plugin>3.4.0</version.maven-war-plugin>

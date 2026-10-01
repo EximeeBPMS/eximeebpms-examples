@@ -31,8 +31,8 @@ import org.eximeebpms.bpm.engine.impl.persistence.entity.ExecutionEntity;
 import org.eximeebpms.bpm.engine.runtime.VariableInstance;
 import org.eximeebpms.bpm.model.bpmn.instance.ExtensionElements;
 import org.eximeebpms.bpm.model.bpmn.instance.Process;
-import org.eximeebpms.bpm.model.bpmn.instance.eximeebpms.CamundaProperties;
-import org.eximeebpms.bpm.model.bpmn.instance.eximeebpms.CamundaProperty;
+import org.eximeebpms.bpm.model.bpmn.instance.eximeebpms.EximeeBpmsProperties;
+import org.eximeebpms.bpm.model.bpmn.instance.eximeebpms.EximeeBpmsProperty;
 
 public class PerProcessHistoryLevel implements HistoryLevel {
 
@@ -75,11 +75,11 @@ public class PerProcessHistoryLevel implements HistoryLevel {
   }
 
   protected void setDelegateHistoryLevel(ExecutionEntity execution) {
-    Collection<CamundaProperty> camundaProperties = getCamundaProperties(execution);
+    Collection<EximeeBpmsProperty> camundaProperties = getEximeeBpmsProperties(execution);
     if (camundaProperties != null) {
-      for (CamundaProperty camundaProperty : camundaProperties) {
-        if (camundaProperty.getCamundaName().equals("history")) {
-          String historyLevelName = camundaProperty.getCamundaValue();
+      for (EximeeBpmsProperty camundaProperty : camundaProperties) {
+        if (camundaProperty.getEximeeBpmsName().equals("history")) {
+          String historyLevelName = camundaProperty.getEximeeBpmsValue();
           HistoryLevel historyLevel = historyLevels.get(historyLevelName);
           delegateHistoryLevelPerProcess.put(execution.getProcessInstanceId(), historyLevel);
         }
@@ -87,13 +87,13 @@ public class PerProcessHistoryLevel implements HistoryLevel {
     }
   }
 
-  protected Collection<CamundaProperty> getCamundaProperties(ExecutionEntity execution) {
+  protected Collection<EximeeBpmsProperty> getEximeeBpmsProperties(ExecutionEntity execution) {
     Process process = (Process) execution.getBpmnModelInstance().getDefinitions().getUniqueChildElementByType(Process.class);
     ExtensionElements extensionElements = process.getExtensionElements();
     if (extensionElements != null) {
-      CamundaProperties properties = (CamundaProperties) extensionElements.getUniqueChildElementByType(CamundaProperties.class);
+      EximeeBpmsProperties properties = (EximeeBpmsProperties) extensionElements.getUniqueChildElementByType(EximeeBpmsProperties.class);
       if (properties != null) {
-        return properties.getCamundaProperties();
+        return properties.getEximeeBpmsProperties();
       }
     }
     return null;

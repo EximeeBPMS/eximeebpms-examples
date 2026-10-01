@@ -2,7 +2,6 @@ package org.eximeebpms.bpm.extension.mockito.delegate;
 
 import org.eximeebpms.bpm.engine.ProcessEngine;
 import org.eximeebpms.bpm.engine.ProcessEngineServices;
-import org.eximeebpms.bpm.engine.delegate.DelegateCaseExecution;
 import org.eximeebpms.bpm.engine.delegate.DelegateExecution;
 import org.eximeebpms.bpm.engine.delegate.DelegateTask;
 import org.eximeebpms.bpm.engine.task.IdentityLink;
@@ -77,9 +76,6 @@ public class DelegateTaskFake extends DelegateFake<DelegateTaskFake> implements 
   private String processInstanceId;
   private String executionId;
   private String processDefinitionId;
-  private String caseInstanceId;
-  private String caseExecutionId;
-  private String caseDefinitionId;
   private Date createTime;
   private Date lastUpdated;
   private String taskDefinitionKey;
@@ -94,7 +90,6 @@ public class DelegateTaskFake extends DelegateFake<DelegateTaskFake> implements 
   private ProcessEngine processEngine;
   private ProcessEngineServices processEngineServices;
   private DelegateExecution delegateExecution;
-  private DelegateCaseExecution delegateCaseExecution;
 
   public DelegateTaskFake() {
     this(null);
@@ -161,9 +156,8 @@ public class DelegateTaskFake extends DelegateFake<DelegateTaskFake> implements 
 
   @Override
   public String getProcessInstanceId() {
-    return valueFromCaseOrProcessExecution(
+    return valueFromExecution(
       DelegateExecution::getProcessInstanceId,
-      c -> null,
       processInstanceId
     );
   }
@@ -183,42 +177,6 @@ public class DelegateTaskFake extends DelegateFake<DelegateTaskFake> implements 
 
   public DelegateTaskFake withProcessDefinitionId(String processDefinitionId) {
     this.processDefinitionId = processDefinitionId;
-    return this;
-  }
-
-  @Override
-  public String getCaseInstanceId() {
-    return Optional.ofNullable(delegateCaseExecution)
-      .map(DelegateCaseExecution::getCaseInstanceId)
-      .orElse(caseInstanceId);
-  }
-
-  public DelegateTaskFake withCaseInstanceId(String caseInstanceId) {
-    this.caseInstanceId = caseInstanceId;
-    return this;
-  }
-
-  @Override
-  public String getCaseExecutionId() {
-    return Optional.ofNullable(delegateCaseExecution)
-      .map(DelegateCaseExecution::getId)
-      .orElse(caseExecutionId);
-  }
-
-  public DelegateTaskFake withCaseExecutionId(String caseExecutionId) {
-    this.caseExecutionId = caseExecutionId;
-    return this;
-  }
-
-  @Override
-  public String getCaseDefinitionId() {
-    return Optional.ofNullable(delegateCaseExecution)
-      .map(DelegateCaseExecution::getCaseDefinitionId)
-      .orElse(caseDefinitionId);
-  }
-
-  public DelegateTaskFake withCaseDefinitionId(String caseDefinitionId) {
-    this.caseDefinitionId = caseDefinitionId;
     return this;
   }
 
@@ -283,21 +241,6 @@ public class DelegateTaskFake extends DelegateFake<DelegateTaskFake> implements 
   }
 
   @Override
-  public DelegateCaseExecution getCaseExecution() {
-    return delegateCaseExecution;
-  }
-
-  public DelegateCaseExecutionFake getCaseExecutionFake() {
-    return (DelegateCaseExecutionFake) getCaseExecution();
-  }
-
-  public DelegateTaskFake withCaseExecution(DelegateCaseExecution caseExecution) {
-    this.delegateCaseExecution = caseExecution;
-
-    return this;
-  }
-
-  @Override
   public String getEventName() {
     return eventName;
   }
@@ -341,9 +284,8 @@ public class DelegateTaskFake extends DelegateFake<DelegateTaskFake> implements 
 
       @Override
       public String getTenantId() {
-        return valueFromCaseOrProcessExecution(
+        return valueFromExecution(
           DelegateExecution::getTenantId,
-          DelegateCaseExecution::getTenantId,
           tenantId
         );
       }
@@ -473,9 +415,8 @@ public class DelegateTaskFake extends DelegateFake<DelegateTaskFake> implements 
 
   @Override
   public String getTenantId() {
-    return valueFromCaseOrProcessExecution(
+    return valueFromExecution(
       DelegateExecution::getTenantId,
-      DelegateCaseExecution::getTenantId,
       tenantId
     );
   }
@@ -512,33 +453,27 @@ public class DelegateTaskFake extends DelegateFake<DelegateTaskFake> implements 
 
   @Override
   public ProcessEngineServices getProcessEngineServices() {
-    return valueFromCaseOrProcessExecution(
+    return valueFromExecution(
       DelegateExecution::getProcessEngineServices,
-      DelegateCaseExecution::getProcessEngineServices,
       processEngineServicesAwareFake.getProcessEngineServices()
     );
   }
 
   @Override
   public ProcessEngine getProcessEngine() {
-    return valueFromCaseOrProcessExecution(
+    return valueFromExecution(
       DelegateExecution::getProcessEngine,
-      DelegateCaseExecution::getProcessEngine,
       processEngineServicesAwareFake.getProcessEngine()
     );
   }
 
-  private <T> T valueFromCaseOrProcessExecution(
+  private <T> T valueFromExecution(
     Function<DelegateExecution, T> fromProcess,
-    Function<DelegateCaseExecution, T> fromCase,
     T fromTask) {
 
     return Optional.ofNullable(delegateExecution)
       .map(fromProcess)
-      .orElse(Optional.ofNullable(delegateCaseExecution)
-        .map(fromCase)
-        .orElse(fromTask)
-      );
+      .orElse(fromTask);
   }
 
   @Override public String toString() {
@@ -551,9 +486,6 @@ public class DelegateTaskFake extends DelegateFake<DelegateTaskFake> implements 
       ", processInstanceId='" + processInstanceId + '\'' +
       ", executionId='" + executionId + '\'' +
       ", processDefinitionId='" + processDefinitionId + '\'' +
-      ", caseInstanceId='" + caseInstanceId + '\'' +
-      ", caseExecutionId='" + caseExecutionId + '\'' +
-      ", caseDefinitionId='" + caseDefinitionId + '\'' +
       ", createTime=" + createTime +
       ", taskDefinitionKey='" + taskDefinitionKey + '\'' +
       ", eventName='" + eventName + '\'' +
@@ -566,7 +498,6 @@ public class DelegateTaskFake extends DelegateFake<DelegateTaskFake> implements 
       ", processEngine='" + getProcessEngine() + '\'' +
       ", processEngineServices=" + getProcessEngineServices() +
       ", delegateExecution=" + delegateExecution +
-      ", delegateCaseExecution=" + delegateCaseExecution +
       '}';
   }
 }

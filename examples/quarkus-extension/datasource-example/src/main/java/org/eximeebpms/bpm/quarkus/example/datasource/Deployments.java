@@ -17,7 +17,7 @@
 package org.eximeebpms.bpm.quarkus.example.datasource;
 
 import org.eximeebpms.bpm.engine.repository.Deployment;
-import org.eximeebpms.bpm.quarkus.engine.extension.event.CamundaEngineStartupEvent;
+import org.eximeebpms.bpm.quarkus.engine.extension.event.EximeeBpmsEngineStartupEvent;
 
 import jakarta.enterprise.event.Observes;
 import jakarta.inject.Inject;
@@ -32,7 +32,7 @@ public class Deployments {
   @Inject
   protected RepositoryService repositoryService;
 
-  public void performDeployment(@Observes CamundaEngineStartupEvent startupEvent) {
+  public void performDeployment(@Observes EximeeBpmsEngineStartupEvent startupEvent) {
     Deployment deployment = repositoryService.createDeployment()
         .enableDuplicateFiltering(true)
         .name("example-deployment")

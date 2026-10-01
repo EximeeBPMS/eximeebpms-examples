@@ -1,0 +1,26 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="jakarta.faces.facelets"
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core"
+      xmlns:z="http://www.qualcomm.com/jsf/core"
+      xmlns:c="jakarta.tags.core"
+      xmlns:fn="jakarta.tags.functions">
+
+	<ui:composition>
+	<tr>
+		<td style="font-weight: bold;">${label}:</td>
+		<td>
+			<h:inputText id="${id}d" value="#{property}" styleClass="datePicker" rendered="${type eq 'date'}">
+				<f:ajax event="blur" render="${id}Message"/>
+				<f:convertDateTime pattern="mm/dd/yyyy" />
+			</h:inputText>
+			<h:inputText id="${id}" value="#{property}" rendered="${type eq 'text' || type == null}">
+				<f:ajax event="blur" render="${id}Message"/> 
+			</h:inputText>
+		</td>
+		<td><h:message id="${id}Message" for="${id}" errorClass="invalid" /></td>
+	</tr>	
+	</ui:composition>
+</html>

@@ -7,9 +7,17 @@ name: Release Mockito
 # over several years) - there's no "upstream never stabilized" situation here, so the
 # first release should be a genuine 1.0.0, not an alpha.
 #
+# maven-release-plugin needs to push a version-bump commit and a tag directly to master.
+# master has a "changes must go through a pull request" repository rule (ruleset id
+# 20975287) - the default GITHUB_TOKEN (github-actions[bot]) has no bypass on it. The real
+# eximeebpms (engine) release pipeline hits the exact same rule on its own main branch and
+# solves it by authenticating as the "eximeebpmsrunner" GitHub App instead, which IS listed
+# as a bypass actor there - mirrored here rather than reinvented, once the same app is
+# granted access to this repo and added to this repo's own ruleset bypass list too.
+#
 # Same trimmed-down mechanics as release-archetypes.yml/release-assert-scenario.yml - see
 # release-archetypes.yml's header comment for what was deliberately left out (SBOM,
-# cosign, self-hosted runner, GitHub App token).
+# cosign, self-hosted runner).
 
 permissions:
   contents: write
@@ -35,8 +43,17 @@ jobs:
       run:
         working-directory: mockito
     steps:
+      - name: Generate eximeebpmsrunner app token
+        id: app-token
+        uses: actions/create-github-app-token@v3
+        with:
+          app-id: ${{ secrets.EXIMEEBPMSRUNNER_APP_ID }}
+          private-key: ${{ secrets.EXIMEEBPMSRUNNER_APP_PRIVATE_KEY }}
+
       - name: Check out the code
         uses: actions/checkout@v4
+        with:
+          token: ${{ steps.app-token.outputs.token }}
 
       - name: Set up JDK
         uses: actions/setup-java@v4
@@ -66,7 +83,7 @@ jobs:
         env:
           CPP_USERNAME: ${{ secrets.CPP_USERNAME }}
           CPP_PASSWORD: ${{ secrets.CPP_PASSWORD }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
 
       - name: Import GPG key
         run: |
@@ -89,29 +106,34 @@ jobs:
             -DdevelopmentVersion=${{ github.event.inputs.development_version }}-SNAPSHOT
         env:
           GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
 
       - name: Release perform (checkout the tag only, no deploy yet)
         run: |
           mvn release:perform --settings ~/.m2-release/settings.xml -Dgoals="" \
             -Darguments="-DskipTests"
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
 
       - name: Deploy (stage locally, no network)
+        # release:perform clones the whole eximeebpms-examples monorepo into
+        # target/checkout (mockito's scm points at the repo, not a standalone
+        # mockito-only repo) - the actual project lives one level down, at
+        # target/checkout/mockito, same path release:perform's own internal
+        # "run-perform-goals" phase already uses.
         run: |
-          cd target/checkout
+          cd target/checkout/mockito
           mvn deploy -Prelease -B --settings ~/.m2-release/settings.xml -DskipTests \
             -DaltDeploymentRepository=local::file:$(pwd)/target/staging-deploy
         env:
           GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
 
       - name: Publish staged artifacts to Maven Central (JReleaser)
         uses: jreleaser/release-action@v2
         with:
           version: '1.19.0'
-          working-directory: mockito/target/checkout
+          working-directory: mockito/target/checkout/mockito
           arguments: deploy
         env:
           JRELEASER_PROJECT_VERSION: ${{ github.event.inputs.release_version }}
@@ -132,3 +154,5 @@ jobs:
             https://central.sonatype.com/publishing/deployments
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+# (no functional change - re-saved to force GitHub Actions to (re-)discover this workflow file)

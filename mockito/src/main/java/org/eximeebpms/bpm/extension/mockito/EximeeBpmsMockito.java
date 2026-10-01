@@ -2,7 +2,6 @@ package org.eximeebpms.bpm.extension.mockito;
 
 
 import org.eximeebpms.bpm.engine.AuthorizationService;
-import org.eximeebpms.bpm.engine.CaseService;
 import org.eximeebpms.bpm.engine.ExternalTaskService;
 import org.eximeebpms.bpm.engine.FilterService;
 import org.eximeebpms.bpm.engine.HistoryService;
@@ -17,8 +16,6 @@ import org.eximeebpms.bpm.engine.delegate.ExecutionListener;
 import org.eximeebpms.bpm.engine.delegate.JavaDelegate;
 import org.eximeebpms.bpm.engine.delegate.TaskListener;
 import org.eximeebpms.bpm.engine.test.mock.Mocks;
-import org.eximeebpms.bpm.extension.mockito.delegate.DelegateCaseExecutionFake;
-import org.eximeebpms.bpm.extension.mockito.delegate.DelegateCaseVariableInstanceFake;
 import org.eximeebpms.bpm.extension.mockito.delegate.DelegateExecutionFake;
 import org.eximeebpms.bpm.extension.mockito.delegate.DelegateTaskFake;
 import org.eximeebpms.bpm.extension.mockito.delegate.VariableScopeFake;
@@ -31,9 +28,6 @@ import org.eximeebpms.bpm.extension.mockito.query.ActivityStatisticsQueryMock;
 import org.eximeebpms.bpm.extension.mockito.query.AuthorizationQueryMock;
 import org.eximeebpms.bpm.extension.mockito.query.BatchQueryMock;
 import org.eximeebpms.bpm.extension.mockito.query.BatchStatisticsQueryMock;
-import org.eximeebpms.bpm.extension.mockito.query.CaseDefinitionQueryMock;
-import org.eximeebpms.bpm.extension.mockito.query.CaseExecutionQueryMock;
-import org.eximeebpms.bpm.extension.mockito.query.CaseInstanceQueryMock;
 import org.eximeebpms.bpm.extension.mockito.query.DecisionDefinitionQueryMock;
 import org.eximeebpms.bpm.extension.mockito.query.DeploymentQueryMock;
 import org.eximeebpms.bpm.extension.mockito.query.DeploymentStatisticsQueryMock;
@@ -44,8 +38,6 @@ import org.eximeebpms.bpm.extension.mockito.query.FilterQueryMock;
 import org.eximeebpms.bpm.extension.mockito.query.GroupQueryMock;
 import org.eximeebpms.bpm.extension.mockito.query.HistoricActivityStatisticsQueryMock;
 import org.eximeebpms.bpm.extension.mockito.query.HistoricBatchQueryMock;
-import org.eximeebpms.bpm.extension.mockito.query.HistoricCaseActivityInstanceQueryMock;
-import org.eximeebpms.bpm.extension.mockito.query.HistoricCaseInstanceQueryMock;
 import org.eximeebpms.bpm.extension.mockito.query.HistoricDecisionInstanceQueryMock;
 import org.eximeebpms.bpm.extension.mockito.query.HistoricDetailQueryMock;
 import org.eximeebpms.bpm.extension.mockito.query.HistoricIdentityLinkLogQueryMock;
@@ -469,14 +461,6 @@ public enum EximeeBpmsMockito {
     return QueryMocks.mockTaskQuery(serviceMock);
   }
 
-  public static CaseInstanceQueryMock mockCaseInstanceQuery(final CaseService serviceMock) {
-    return QueryMocks.mockCaseInstanceQuery(serviceMock);
-  }
-
-  public static CaseExecutionQueryMock mockCaseExecutionQuery(final CaseService serviceMock) {
-    return QueryMocks.mockCaseExecutionQuery(serviceMock);
-  }
-
   public static ExecutionQueryMock mockExecutionQuery(final RuntimeService serviceMock) {
     return QueryMocks.mockExecutionQuery(serviceMock);
   }
@@ -499,10 +483,6 @@ public enum EximeeBpmsMockito {
 
   public static ProcessDefinitionQueryMock mockProcessDefinitionQuery(final RepositoryService serviceMock) {
     return QueryMocks.mockProcessDefinitionQuery(serviceMock);
-  }
-
-  public static CaseDefinitionQueryMock mockCaseDefinitionQuery(final RepositoryService serviceMock) {
-    return QueryMocks.mockCaseDefinitionQuery(serviceMock);
   }
 
   public static DecisionDefinitionQueryMock mockDecisionDefinitionQuery(final RepositoryService serviceMock) {
@@ -529,10 +509,6 @@ public enum EximeeBpmsMockito {
     return QueryMocks.mockHistoricVariableInstanceQuery(serviceMock);
   }
 
-  public static HistoricCaseActivityInstanceQueryMock mockHistoricCaseActivityInstanceQuery(final HistoryService serviceMock) {
-    return QueryMocks.mockHistoricCaseActivityInstanceQuery(serviceMock);
-  }
-
   public static HistoricDecisionInstanceQueryMock mockHistoricDecisionInstanceQuery(final HistoryService serviceMock) {
     return QueryMocks.mockHistoricDecisionInstanceQuery(serviceMock);
   }
@@ -551,10 +527,6 @@ public enum EximeeBpmsMockito {
 
   public static HistoricIncidentQueryMock mockHistoricIncidentQuery(final HistoryService serviceMock) {
     return QueryMocks.mockHistoricIncidentQuery(serviceMock);
-  }
-
-  public static HistoricCaseInstanceQueryMock mockHistoricCaseInstanceQuery(final HistoryService serviceMock) {
-    return QueryMocks.mockHistoricCaseInstanceQuery(serviceMock);
   }
 
   public static HistoricJobLogQueryMock mockHistoricJobLogQuery(final HistoryService serviceMock) {
@@ -620,10 +592,6 @@ public enum EximeeBpmsMockito {
   public static DelegateExecutionFake delegateExecutionFake() {
     return new DelegateExecutionFake();
   }
-
-  public static DelegateCaseExecutionFake delegateCaseExecutionFake() { return new DelegateCaseExecutionFake(); }
-
-  public static DelegateCaseVariableInstanceFake delegateCaseVariableInstanceFake() { return new DelegateCaseVariableInstanceFake(); }
 
   public static DelegateTaskFake delegateTaskFake() {
     return new DelegateTaskFake();

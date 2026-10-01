@@ -12,6 +12,8 @@
     <groupId>org.eximeebpms.bpm.extension.scenario</groupId>
     <artifactId>eximeebpms-platform-scenario-cucumber</artifactId>
 
+    <name>eximeebpms-platform-scenario-cucumber</name>
+
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>

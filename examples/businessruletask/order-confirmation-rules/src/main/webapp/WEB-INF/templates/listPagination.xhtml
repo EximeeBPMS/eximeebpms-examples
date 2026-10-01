@@ -1,0 +1,29 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="jakarta.faces.facelets"
+	xmlns:h="jakarta.faces.html"
+	xmlns:f="jakarta.faces.core"
+	xmlns:z="http://www.qualcomm.com/jsf/core"
+	xmlns:c="jakarta.tags.core"
+	xmlns:fn="jakarta.tags.functions">
+
+	<ui:composition>
+		<div class="pagination">
+			<div class="pagination-left">
+				<h:commandLink value="Previous" styleClass="page-nav-prev"
+					rendered="#{listBean.hasLess}" action="#{listBean.prevPage()}">
+					<f:ajax render="@form" />
+				</h:commandLink>
+			</div>
+			<div class="pagination-center"></div>
+			<div class="pagination-right">
+				<h:commandLink styleClass="page-nav-next" value="Next"
+					rendered="#{listBean.hasMore}" action="#{listBean.nextPage()}">
+					<f:ajax render="@form" />
+				</h:commandLink>
+			</div>
+			<div style="clear: both" />
+		</div>
+	</ui:composition>
+</html>

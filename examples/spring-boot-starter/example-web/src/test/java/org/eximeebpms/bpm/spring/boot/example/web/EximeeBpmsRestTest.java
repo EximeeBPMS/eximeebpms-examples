@@ -19,7 +19,7 @@ package org.eximeebpms.bpm.spring.boot.example.web;
 import static org.junit.Assert.assertEquals;
 
 import org.eximeebpms.bpm.engine.rest.dto.repository.ProcessDefinitionDto;
-import org.eximeebpms.bpm.spring.boot.starter.property.CamundaBpmProperties;
+import org.eximeebpms.bpm.spring.boot.starter.property.EximeeBpmsBpmProperties;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,12 +43,12 @@ public class EximeeBpmsRestTest {
   private int port;
 
   @Autowired
-  private CamundaBpmProperties camundaBpmProperties;
+  private EximeeBpmsBpmProperties eximeeBpmsProperties;
 
   @Test
   public void processDefinitionTest() {
     ResponseEntity<ProcessDefinitionDto[]> entity = restTemplate.getForEntity("http://localhost:" + this.port + "/engine-rest/engine/{engineName}/process-definition", ProcessDefinitionDto[].class,
-      camundaBpmProperties.getProcessEngineName());
+      eximeeBpmsProperties.getProcessEngineName());
     assertEquals(HttpStatus.OK, entity.getStatusCode());
     assertEquals("Sample", entity.getBody()[0].getKey());
   }

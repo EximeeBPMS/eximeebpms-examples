@@ -37,9 +37,9 @@ import org.eximeebpms.bpm.model.bpmn.instance.ServiceTask;
 import org.eximeebpms.bpm.model.bpmn.instance.StartEvent;
 import org.eximeebpms.bpm.model.bpmn.instance.UserTask;
 import org.eximeebpms.bpm.model.bpmn.instance.bpmndi.BpmnPlane;
-import org.eximeebpms.bpm.model.bpmn.instance.eximeebpms.CamundaExecutionListener;
-import org.eximeebpms.bpm.model.bpmn.instance.eximeebpms.CamundaFormData;
-import org.eximeebpms.bpm.model.bpmn.instance.eximeebpms.CamundaFormField;
+import org.eximeebpms.bpm.model.bpmn.instance.eximeebpms.EximeeBpmsExecutionListener;
+import org.eximeebpms.bpm.model.bpmn.instance.eximeebpms.EximeeBpmsFormData;
+import org.eximeebpms.bpm.model.bpmn.instance.eximeebpms.EximeeBpmsFormField;
 import org.eximeebpms.bpm.model.xml.instance.ModelElementInstance;
 import org.junit.Before;
 import org.junit.Test;
@@ -108,15 +108,15 @@ public class ParseBpmnTest {
     assertThat(serviceTask.getId()).isEqualTo("serviceTask");
     assertThat(serviceTask.getName()).isEqualTo("Service Task");
     // you can also access camunda extension attributes
-    assertThat(serviceTask.getCamundaExpression()).isEqualTo("${execution.setVariable('foo', 'bar')}");
+    assertThat(serviceTask.getEximeeBpmsExpression()).isEqualTo("${execution.setVariable('foo', 'bar')}");
     assertThat(serviceTask.isCamundaAsyncBefore()).isTrue();
     assertThat(serviceTask.isCamundaExclusive()).isFalse();
 
     UserTask userTaskA = modelInstance.getModelElementById("userTaskA");
-    assertThat(userTaskA.getCamundaCandidateGroupsList()).containsExactly("management", "accounting");
+    assertThat(userTaskA.getEximeeBpmsCandidateGroupsList()).containsExactly("management", "accounting");
 
     UserTask userTaskB = modelInstance.getModelElementById("userTaskB");
-    assertThat(userTaskB.getCamundaAssignee()).isEqualTo("demo");
+    assertThat(userTaskB.getEximeeBpmsAssignee()).isEqualTo("demo");
 
     // if the element contains an attribute which is not accessible by a special getter a generic getter can be used
     // Note: for demonstrating purpose we read attributes which also can be accessed by special getters
@@ -165,18 +165,18 @@ public class ParseBpmnTest {
     assertThat(elements).hasSize(1);
 
     // get the camunda:formData extension element and containing form fields
-    CamundaFormData formData = extensionElements.getElementsQuery().filterByType(CamundaFormData.class).singleResult();
-    for (CamundaFormField formField : formData.getCamundaFormFields()) {
-      assertThat(formField.getCamundaLabel()).isIn("Name", "Age");
-      assertThat(formField.getCamundaType()).isIn("string", "long");
-      assertThat(formField.getCamundaDefaultValue()).isIn("test", "0");
+    EximeeBpmsFormData formData = extensionElements.getElementsQuery().filterByType(EximeeBpmsFormData.class).singleResult();
+    for (EximeeBpmsFormField formField : formData.getEximeeBpmsFormFields()) {
+      assertThat(formField.getEximeeBpmsLabel()).isIn("Name", "Age");
+      assertThat(formField.getEximeeBpmsType()).isIn("string", "long");
+      assertThat(formField.getEximeeBpmsDefaultValue()).isIn("test", "0");
     }
 
     // the end event contains an execution listener
     EndEvent endEvent = modelInstance.getModelElementById("endEvent");
-    CamundaExecutionListener executionListener = endEvent.getExtensionElements().getElementsQuery().filterByType(CamundaExecutionListener.class).singleResult();
-    assertThat(executionListener.getCamundaEvent()).isEqualTo("start");
-    assertThat(executionListener.getCamundaExpression()).isEqualTo("${execution.setVariable('finished', true)}");
+    EximeeBpmsExecutionListener executionListener = endEvent.getExtensionElements().getElementsQuery().filterByType(EximeeBpmsExecutionListener.class).singleResult();
+    assertThat(executionListener.getEximeeBpmsEvent()).isEqualTo("start");
+    assertThat(executionListener.getEximeeBpmsExpression()).isEqualTo("${execution.setVariable('finished', true)}");
   }
 
   @Test

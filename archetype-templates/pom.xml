@@ -4,7 +4,7 @@
 
   <groupId>org.eximeebpms.bpm.archetype</groupId>
   <artifactId>eximeebpms-archetype-root</artifactId>
-  <version>1.3.0</version>
+  <version>1.4.0-SNAPSHOT</version>
   <packaging>pom</packaging>
 
   <name>EximeeBPMS Archetypes Parent POM</name>
@@ -45,11 +45,11 @@
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
     <version.assertj-core>3.26.3</version.assertj-core>
-    <version.eximeebpms>1.3.0</version.eximeebpms>
+    <version.eximeebpms>1.4.0</version.eximeebpms>
     <!-- eximeebpms-bpm-assert-scenario is forked (docs-camunda-repository-references.md,
-         part of the eximeebpms-examples consolidation) but not yet published anywhere;
-         this SNAPSHOT version matches its current local build -->
-    <version.eximeebpms-bpm-assert-scenario>1.0.0-SNAPSHOT</version.eximeebpms-bpm-assert-scenario>
+         part of the eximeebpms-examples consolidation); published to Maven Central as an
+         alpha (assert-scenario-v1.0.0-alpha.1 release) -->
+    <version.eximeebpms-bpm-assert-scenario>1.0.0-alpha.1</version.eximeebpms-bpm-assert-scenario>
     <version.h2>2.3.232</version.h2>
     <version.junit-jupiter>6.1.3</version.junit-jupiter>
     <version.logback>1.2.12</version.logback>
@@ -111,9 +111,9 @@
   </build>
 
   <scm>
-    <connection>scm:git:ssh://git@github.com/eximeebpms/eximeebpms-examples.git</connection>
-    <developerConnection>scm:git:ssh://git@github.com/eximeebpms/eximeebpms-examples.git</developerConnection>
-    <url>https://github.com/eximeebpms/eximeebpms-examples</url>
+    <connection>scm:git:https://github.com/EximeeBPMS/eximeebpms-examples.git</connection>
+    <developerConnection>scm:git:https://github.com/EximeeBPMS/eximeebpms-examples.git</developerConnection>
+    <url>https://github.com/EximeeBPMS/eximeebpms-examples</url>
     <tag>HEAD</tag>
   </scm>
 

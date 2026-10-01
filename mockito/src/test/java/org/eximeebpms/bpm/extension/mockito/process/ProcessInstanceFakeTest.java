@@ -30,7 +30,6 @@ public class ProcessInstanceFakeTest {
   public void testFullBuilder() {
     ProcessInstanceFake fake = ProcessInstanceFake.builder()
       .businessKey("businessKey")
-      .caseInstanceId("caseInstanceId")
       .ended(true)
       .id("id")
       .processDefinitionId("processDefinitionId")
@@ -40,7 +39,6 @@ public class ProcessInstanceFakeTest {
       .build();
 
     assertThat(fake.getBusinessKey()).isEqualTo("businessKey");
-    assertThat(fake.getCaseInstanceId()).isEqualTo("caseInstanceId");
     assertThat(fake.getId()).isEqualTo("id");
     assertThat(fake.getProcessDefinitionId()).isEqualTo("processDefinitionId");
     assertThat(fake.getProcessInstanceId()).isEqualTo("processInstanceId");

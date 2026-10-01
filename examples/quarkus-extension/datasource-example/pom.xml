@@ -9,7 +9,7 @@
   <version>1.0.0-SNAPSHOT</version>
 
   <properties>
-    <version.eximeebpms>1.3.0</version.eximeebpms>
+    <version.eximeebpms>1.4.0</version.eximeebpms>
     <version.quarkus>3.27.0</version.quarkus>
     <version.assertj>3.27.3</version.assertj>
     <compiler-plugin.version>3.14.0</compiler-plugin.version>

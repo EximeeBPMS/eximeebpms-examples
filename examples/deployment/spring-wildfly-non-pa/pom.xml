@@ -9,7 +9,7 @@
   <version>1.0-SNAPSHOT</version>
 
   <properties>
-    <eximeebpms.version>1.3.0</eximeebpms.version>
+    <eximeebpms.version>1.4.0</eximeebpms.version>
     <spring.version>6.2.11</spring.version>
     <maven-war-plugin.version>3.3.2</maven-war-plugin.version>
 

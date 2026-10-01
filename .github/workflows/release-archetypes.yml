@@ -7,8 +7,16 @@ name: Release Archetypes
 # Mirrors the real eximeebpms (engine) release pipeline's Maven Central mechanics
 # (release profile -> stage locally -> JReleaser uploads the staged bundle), trimmed
 # down for a small, dependency-light Maven Archetype reactor: no SBOM generation, no
-# Sigstore/cosign signing, no chained snapshot release, no self-hosted runner or
-# GitHub App token - those are engine-specific additions this repo doesn't need.
+# Sigstore/cosign signing, no chained snapshot release, no self-hosted runner - those
+# are engine-specific additions this repo doesn't need.
+#
+# maven-release-plugin needs to push a version-bump commit and a tag directly to master.
+# master has a "changes must go through a pull request" repository rule (ruleset id
+# 20975287) - the default GITHUB_TOKEN (github-actions[bot]) has no bypass on it. The real
+# eximeebpms (engine) release pipeline hits the exact same rule on its own main branch and
+# solves it by authenticating as the "eximeebpmsrunner" GitHub App instead, which IS listed
+# as a bypass actor there - mirrored here rather than reinvented, once the same app is
+# granted access to this repo and added to this repo's own ruleset bypass list too.
 #
 # The upload lands in the Central Publisher Portal (https://central.sonatype.com/publishing/deployments)
 # awaiting manual confirmation - this workflow does not auto-publish.
@@ -37,8 +45,17 @@ jobs:
       run:
         working-directory: archetype-templates
     steps:
+      - name: Generate eximeebpmsrunner app token
+        id: app-token
+        uses: actions/create-github-app-token@v3
+        with:
+          app-id: ${{ secrets.EXIMEEBPMSRUNNER_APP_ID }}
+          private-key: ${{ secrets.EXIMEEBPMSRUNNER_APP_PRIVATE_KEY }}
+
       - name: Check out the code
         uses: actions/checkout@v4
+        with:
+          token: ${{ steps.app-token.outputs.token }}
 
       - name: Set up JDK
         uses: actions/setup-java@v4
@@ -68,7 +85,7 @@ jobs:
         env:
           CPP_USERNAME: ${{ secrets.CPP_USERNAME }}
           CPP_PASSWORD: ${{ secrets.CPP_PASSWORD }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
 
       - name: Import GPG key
         run: |
@@ -91,29 +108,34 @@ jobs:
             -DdevelopmentVersion=${{ github.event.inputs.development_version }}-SNAPSHOT
         env:
           GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
 
       - name: Release perform (checkout the tag only, no deploy yet)
         run: |
           ./mvnw release:perform --settings ~/.m2-release/settings.xml -Dgoals="" \
             -Darguments="-DskipTests"
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
 
       - name: Deploy (stage locally, no network)
+        # release:perform clones the whole eximeebpms-examples monorepo into
+        # target/checkout (archetype-templates's scm points at the repo, not a
+        # standalone archetype-templates-only repo) - the actual project lives one
+        # level down, at target/checkout/archetype-templates, same path
+        # release:perform's own internal "run-perform-goals" phase already uses.
         run: |
-          cd target/checkout
-          ../mvnw deploy -Prelease -B --settings ~/.m2-release/settings.xml -DskipTests \
+          cd target/checkout/archetype-templates
+          ./mvnw deploy -Prelease -B --settings ~/.m2-release/settings.xml -DskipTests \
             -DaltDeploymentRepository=local::file:$(pwd)/target/staging-deploy
         env:
           GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
 
       - name: Publish staged artifacts to Maven Central (JReleaser)
         uses: jreleaser/release-action@v2
         with:
           version: '1.19.0'
-          working-directory: archetype-templates/target/checkout
+          working-directory: archetype-templates/target/checkout/archetype-templates
           arguments: deploy
         env:
           JRELEASER_PROJECT_VERSION: ${{ github.event.inputs.release_version }}

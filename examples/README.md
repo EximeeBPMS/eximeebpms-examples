@@ -57,6 +57,7 @@ EximeeBPMS examples is a collection of focused usage examples for [EximeeBPMS](h
 | [Script Task XQuery](/scripttask/xquery-scripttask) [^1]                                                         | Unit Test         | XQuery Scripttask         |
 | [Start Event - Message](/startevent/message-start)                                                               | Unit Test         | Message Start Event       |
 | [Start Process - SOAP CXF](/startevent/soap-cxf-server-start) [^1]                                               | War               | SOAP, CXF, Spring         |
+| [Business Rule Task - Order Confirmation Rules](/businessruletask/order-confirmation-rules) [^2]                 | JavaEE Containers | Drools, Business Rule Task, JSF |
 
 ### Deployment & Project Setup Examples
 

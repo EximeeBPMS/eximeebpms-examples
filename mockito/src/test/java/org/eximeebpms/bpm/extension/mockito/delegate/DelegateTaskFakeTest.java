@@ -2,7 +2,6 @@ package org.eximeebpms.bpm.extension.mockito.delegate;
 
 
 import org.eximeebpms.bpm.engine.ProcessEngineServices;
-import org.eximeebpms.bpm.engine.delegate.DelegateCaseExecution;
 import org.eximeebpms.bpm.engine.delegate.DelegateExecution;
 import org.eximeebpms.bpm.engine.delegate.DelegateTask;
 import org.eximeebpms.bpm.engine.delegate.TaskListener;
@@ -117,27 +116,6 @@ public class DelegateTaskFakeTest {
     assertThat(delegate.getProcessEngineServices()).isEqualTo(processEngineServices);
     assertThat(delegate.getTenantId()).isEqualTo("tenant");
     assertThat(delegate.getProcessInstanceId()).isEqualTo("prId");
-  }
-
-
-  @Test
-  public void delegateCaseExecution_use_attributes_from_execution() {
-    delegate.withCaseExecutionId("1");
-    assertThat(delegate.getCaseExecutionId()).isEqualTo("1");
-
-    DelegateCaseExecution execution = new DelegateCaseExecutionFake("2")
-      .withCaseDefinitionId("cd1")
-      .withProcessEngineServices(processEngineServices)
-      .withTenantId("tenant")
-      .withCaseInstanceId("caId")
-      ;
-    delegate.withCaseExecution(execution);
-
-    assertThat(delegate.getCaseExecutionId()).isEqualTo("2");
-    assertThat(delegate.getCaseDefinitionId()).isEqualTo("cd1");
-    assertThat(delegate.getProcessEngineServices()).isEqualTo(processEngineServices);
-    assertThat(delegate.getTenantId()).isEqualTo("tenant");
-    assertThat(delegate.getCaseInstanceId()).isEqualTo("caId");
   }
 
 

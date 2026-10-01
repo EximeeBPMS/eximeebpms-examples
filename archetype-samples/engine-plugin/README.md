@@ -14,7 +14,7 @@ To get started refer to `InMemoryH2Test` and `eximeebpms.cfg.xml`.
 For using it in production you have to [integrate the plugin into your EximeeBPMS configuration](https://docs.eximeebpms.org/manual/latest/user-guide/process-engine/process-engine-plugins/).
 
 ## Environment Restrictions
-Built and tested against EximeeBPMS version 1.3.0.
+Built and tested against EximeeBPMS version 1.4.0.
 
 ## Known Limitations
 

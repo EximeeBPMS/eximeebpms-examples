@@ -3,7 +3,7 @@
 
   <groupId>org.eximeebpms.bpm.extension.mockito</groupId>
   <artifactId>eximeebpms-bpm-mockito</artifactId>
-  <version>1.0.0-SNAPSHOT</version>
+  <version>2.1.0-SNAPSHOT</version>
 
   <name>EximeeBPMS Mockito</name>
   <description>Mockito extension for testing EximeeBPMS-based process applications.</description>
@@ -15,7 +15,7 @@
     <version.java>17</version.java>
     <java.version>${version.java}</java.version>
 
-    <eximeebpms.version>1.3.0</eximeebpms.version>
+    <eximeebpms.version>1.4.0</eximeebpms.version>
 
     <slf4j.version>1.7.36</slf4j.version>
     <commons-lang3.version>3.17.0</commons-lang3.version>
@@ -176,9 +176,9 @@
   </developers>
 
   <scm>
-    <connection>scm:git:ssh://git@github.com/eximeebpms/eximeebpms-examples.git</connection>
-    <url>https://github.com/eximeebpms/eximeebpms-examples</url>
-    <developerConnection>scm:git:ssh://git@github.com/eximeebpms/eximeebpms-examples.git</developerConnection>
+    <connection>scm:git:https://github.com/EximeeBPMS/eximeebpms-examples.git</connection>
+    <url>https://github.com/EximeeBPMS/eximeebpms-examples</url>
+    <developerConnection>scm:git:https://github.com/EximeeBPMS/eximeebpms-examples.git</developerConnection>
     <tag>HEAD</tag>
   </scm>
 

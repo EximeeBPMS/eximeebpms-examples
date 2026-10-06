@@ -10,29 +10,29 @@
 	<h2>Place a New Order</h2>
 
 	<h:form class="form-horizontal">
-        <div class="control-group">
-            <label class="control-label" for="company">Company name:</label>
-            <div class="controls">
-                <h:inputText id="company" value="#{newOrder.customer.company}" />
+        <div class="row mb-3">
+            <label class="col-sm-2 col-form-label" for="company">Company name:</label>
+            <div class="col-sm-10">
+                <h:inputText id="company" value="#{newOrder.customer.company}" styleClass="form-control" />
                 <h:message id="company_error" for="company" errorClass="invalid" />
             </div>
         </div>
-        <div class="control-group">
-            <label class="control-label" for="email">Email:</label>
-            <div class="controls">
-                <h:inputText id="email" value="#{newOrder.customer.email}" />
+        <div class="row mb-3">
+            <label class="col-sm-2 col-form-label" for="email">Email:</label>
+            <div class="col-sm-10">
+                <h:inputText id="email" value="#{newOrder.customer.email}" styleClass="form-control" />
                 <h:message id="email_error" for="email" errorClass="invalid" />
             </div>
         </div>
-        <div class="control-group">
-            <label class="control-label" for="amount">Amount:</label>
-            <div class="controls">
-                <h:inputText id="amount" value="#{newOrder.amount}" />
+        <div class="row mb-3">
+            <label class="col-sm-2 col-form-label" for="amount">Amount:</label>
+            <div class="col-sm-10">
+                <h:inputText id="amount" value="#{newOrder.amount}" styleClass="form-control" />
                 <h:message id="amount_error" for="amount" errorClass="invalid" />
             </div>
         </div>
-        <div class="control-group">
-            <div class="controls">
+        <div class="row mb-3">
+            <div class="offset-sm-2 col-sm-10">
                 <h:commandButton action="#{newOrderController.save()}" value="save" type="submit" class="btn btn-primary"/>
             </div>
         </div>

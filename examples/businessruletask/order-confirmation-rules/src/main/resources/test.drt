@@ -4,8 +4,8 @@ amountMin
 amountMax
 discount
 
-package org.camunda.bpm.demo.orderconfirmation
-import org.camunda.bpm.demo.orderconfirmation.model.*;
+package org.eximeebpms.bpm.demo.orderconfirmation
+import org.eximeebpms.bpm.demo.orderconfirmation.model.*;
 
 template "discount rule"
 rule "@{name}"

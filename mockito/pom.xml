@@ -18,10 +18,10 @@
     <eximeebpms.version>1.4.0</eximeebpms.version>
 
     <slf4j.version>1.7.36</slf4j.version>
-    <commons-lang3.version>3.17.0</commons-lang3.version>
+    <commons-lang3.version>3.21.0</commons-lang3.version>
 
     <!-- test tools -->
-    <assertj.version>3.27.6</assertj.version>
+    <assertj.version>3.27.7</assertj.version>
     <mockito.version>5.18.0</mockito.version>
     <hamcrest.version>2.2</hamcrest.version>
 
@@ -128,7 +128,7 @@
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-context</artifactId>
-      <version>6.1.14</version>
+      <version>7.0.9</version>
       <scope>provided</scope>
     </dependency>
 

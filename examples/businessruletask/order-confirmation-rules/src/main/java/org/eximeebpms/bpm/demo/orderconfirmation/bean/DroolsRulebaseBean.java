@@ -1,20 +1,20 @@
 package org.eximeebpms.bpm.demo.orderconfirmation.bean;
 
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 
-import org.drools.KnowledgeBase;
-import org.drools.builder.KnowledgeBuilder;
-import org.drools.builder.KnowledgeBuilderError;
-import org.drools.builder.KnowledgeBuilderFactory;
-import org.drools.builder.ResourceType;
-import org.drools.io.ResourceFactory;
-import org.drools.runtime.StatefulKnowledgeSession;
 import org.drools.template.ObjectDataCompiler;
+import org.kie.api.KieBase;
+import org.kie.api.KieServices;
+import org.kie.api.builder.KieBuilder;
+import org.kie.api.builder.KieFileSystem;
+import org.kie.api.builder.Message;
+import org.kie.api.runtime.KieSession;
 
 import org.eximeebpms.bpm.demo.orderconfirmation.model.DiscountRuleEntry;
 
@@ -24,7 +24,7 @@ public class DroolsRulebaseBean {
 
   private String droolsRulebaseAsDrl;
 
-  private KnowledgeBase knowledgeBase;
+  private KieBase knowledgeBase;
 
   @Inject
   private RuleEntryDAO rulesDAO;
@@ -42,29 +42,28 @@ public class DroolsRulebaseBean {
   }
 
   public void createKnowledgebase() {
-    KnowledgeBuilder kbuilder = KnowledgeBuilderFactory.newKnowledgeBuilder();
+    KieServices kieServices = KieServices.Factory.get();
+    KieFileSystem kieFileSystem = kieServices.newKieFileSystem();
+    kieFileSystem.write("src/main/resources/discount-rules.drl",
+        droolsRulebaseAsDrl.getBytes(StandardCharsets.UTF_8));
 
-    try {
-      kbuilder.add(ResourceFactory.newByteArrayResource(droolsRulebaseAsDrl.getBytes("UTF-8")), ResourceType.DRL);
-    } catch (Exception ex) {
-      throw new IllegalStateException("Could not parse rule base \n" + droolsRulebaseAsDrl, ex);
-    }
-
-    if (kbuilder.getErrors().size() > 0) {
-      StringBuffer buf = new StringBuffer();
-      for (KnowledgeBuilderError error : kbuilder.getErrors()) {
+    KieBuilder kieBuilder = kieServices.newKieBuilder(kieFileSystem).buildAll();
+    List<Message> errors = kieBuilder.getResults().getMessages(Message.Level.ERROR);
+    if (!errors.isEmpty()) {
+      StringBuilder buf = new StringBuilder();
+      for (Message error : errors) {
         buf.append(error).append("; ");
       }
-      throw new IllegalStateException("Rulebase is invalid: " + buf.toString() + "\n" + droolsRulebaseAsDrl);
+      throw new IllegalStateException("Rulebase is invalid: " + buf + "\n" + droolsRulebaseAsDrl);
     }
-    knowledgeBase = kbuilder.newKnowledgeBase();
+    knowledgeBase = kieServices.newKieContainer(kieBuilder.getKieModule().getReleaseId()).getKieBase();
   }
 
-  public StatefulKnowledgeSession createNewWorkingMemory() {
-    return getKnowledgeBase().newStatefulKnowledgeSession();
+  public KieSession createNewWorkingMemory() {
+    return getKnowledgeBase().newKieSession();
   }
 
-  private KnowledgeBase getKnowledgeBase() {
+  private KieBase getKnowledgeBase() {
     if (knowledgeBase == null) {
       updateRulebase();
     }

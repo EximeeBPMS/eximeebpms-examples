@@ -14,37 +14,37 @@
 	<h2>#{task.name}</h2>
 	
 	<h:form class="form-horizontal">
-        <div class="control-group">
-            <label class="control-label" for="company">Company:</label>
-            <div class="controls">
-                <span class="uneditable-input">#{orderEntity.customer.company}</span>
+        <div class="row mb-3">
+            <label class="col-sm-2 col-form-label" for="company">Company:</label>
+            <div class="col-sm-10">
+                <span class="form-control-plaintext">#{orderEntity.customer.company}</span>
             </div>
         </div>
-        <div class="control-group">
-            <label class="control-label" for="amount">Amount:</label>
-            <div class="controls">
-                <span class="uneditable-input">#{orderEntity.amount}</span>
+        <div class="row mb-3">
+            <label class="col-sm-2 col-form-label" for="amount">Amount:</label>
+            <div class="col-sm-10">
+                <span class="form-control-plaintext">#{orderEntity.amount}</span>
             </div>
         </div>
-        <div class="control-group">
-            <label class="control-label" for="discount">Discount:</label>
-            <div class="controls">
-                <span class="uneditable-input">#{orderEntity.discount}</span>
+        <div class="row mb-3">
+            <label class="col-sm-2 col-form-label" for="discount">Discount:</label>
+            <div class="col-sm-10">
+                <span class="form-control-plaintext">#{orderEntity.discount}</span>
             </div>
         </div>
-        <div class="control-group">
-            <div class="controls">
-                <label class="checkbox">
-                    <h:selectBooleanCheckbox id="valid"
+        <div class="row mb-3">
+            <div class="offset-sm-2 col-sm-10">
+                <div class="form-check">
+                    <h:selectBooleanCheckbox id="valid" styleClass="form-check-input"
                                              value="#{processVariables['orderApproved']}"
                                              required="true" />
+                    <label class="form-check-label" for="valid">Is this order OK?</label>
                     <h:message for="valid"/>
-                    Is this order OK?
-                </label>
+                </div>
             </div>
         </div>
-        <div class="control-group">
-            <div class="controls">
+        <div class="row mb-3">
+            <div class="offset-sm-2 col-sm-10">
                 <h:commandButton action="#{businessProcess.completeTask(true)}" value="Done" type="submit" class="btn btn-primary"/>
             </div>
         </div>

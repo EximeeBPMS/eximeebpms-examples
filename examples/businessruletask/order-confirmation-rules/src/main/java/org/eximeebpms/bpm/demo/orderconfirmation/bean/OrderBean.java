@@ -11,7 +11,7 @@ import org.eximeebpms.bpm.demo.orderconfirmation.model.Order;
 import org.eximeebpms.bpm.demo.orderconfirmation.model.PersistentOrder;
 import org.eximeebpms.bpm.engine.cdi.BusinessProcess;
 import org.eximeebpms.bpm.engine.cdi.annotation.StartProcess;
-import org.drools.runtime.StatefulKnowledgeSession;
+import org.kie.api.runtime.KieSession;
 
 @Named
 @Stateless // we need an EJB to get a proper transaction
@@ -46,7 +46,7 @@ public class OrderBean {
   }  
 
   public void applyRules() {
-    StatefulKnowledgeSession workingMemory = droolsRulebaseBean.createNewWorkingMemory();
+    KieSession workingMemory = droolsRulebaseBean.createNewWorkingMemory();
     workingMemory.insert(getOrderEntity());
     workingMemory.fireAllRules();
     workingMemory.dispose();

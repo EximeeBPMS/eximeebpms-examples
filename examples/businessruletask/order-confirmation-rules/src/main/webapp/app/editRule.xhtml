@@ -16,39 +16,39 @@
             <h:outputText value="Create a new discount rule entry" rendered="#{ruleEntryEdit.newEntry}" />
             <h:outputText value="Edit discount rule entry" rendered="#{not ruleEntryEdit.newEntry}" />
         </legend>
-        <div class="control-group">
-            <label class="control-label" for="name">Rule name:</label>
-            <div class="controls">
-                <h:inputText id="name" value="#{ruleEntryEdit.ruleEntry.name}" />
+        <div class="row mb-3">
+            <label class="col-sm-2 col-form-label" for="name">Rule name:</label>
+            <div class="col-sm-10">
+                <h:inputText id="name" value="#{ruleEntryEdit.ruleEntry.name}" styleClass="form-control" />
                 <h:message id="name_error" for="name" errorClass="invalid" />
             </div>
         </div>
-        <div class="control-group">
-            <label class="control-label" for="amountMin">Amount min (&gt;):</label>
-            <div class="controls">
-                <h:inputText id="amountMin" value="#{ruleEntryEdit.ruleEntry.amountMin}" />
+        <div class="row mb-3">
+            <label class="col-sm-2 col-form-label" for="amountMin">Amount min (&gt;):</label>
+            <div class="col-sm-10">
+                <h:inputText id="amountMin" value="#{ruleEntryEdit.ruleEntry.amountMin}" styleClass="form-control" />
                 <h:message id="amountMin_error" for="amountMin" errorClass="invalid" />
             </div>
         </div>
-        <div class="control-group">
-            <label class="control-label" for="amountMax">Amount max (&lt;=):</label>
-            <div class="controls">
-                <h:inputText id="amountMax" value="#{ruleEntryEdit.ruleEntry.amountMax}" />
+        <div class="row mb-3">
+            <label class="col-sm-2 col-form-label" for="amountMax">Amount max (&lt;=):</label>
+            <div class="col-sm-10">
+                <h:inputText id="amountMax" value="#{ruleEntryEdit.ruleEntry.amountMax}" styleClass="form-control" />
                 <h:message id="amountMax_error" for="amountMax" errorClass="invalid" />
             </div>
         </div>
-        <div class="control-group">
-            <label class="control-label" for="discount">Discount:</label>
-            <div class="controls">
-                <h:inputText id="discount" value="#{ruleEntryEdit.ruleEntry.discount}" />
+        <div class="row mb-3">
+            <label class="col-sm-2 col-form-label" for="discount">Discount:</label>
+            <div class="col-sm-10">
+                <h:inputText id="discount" value="#{ruleEntryEdit.ruleEntry.discount}" styleClass="form-control" />
                 <h:message id="discount_error" for="discount" errorClass="invalid" />
             </div>
         </div>
-        <div class="control-group">
-            <div class="controls">
+        <div class="row mb-3">
+            <div class="offset-sm-2 col-sm-10">
                 <h:commandButton action="#{ruleEntryEdit.save()}" value="save" type="submit"  rendered="#{ruleEntryEdit.newEntry}" class="btn btn-primary"/>
                 <h:commandButton action="#{ruleEntryEdit.update()}" value="update" type="submit" rendered="#{not ruleEntryEdit.newEntry}" class="btn btn-success"/>
-                <h:commandButton action="#{ruleEntryEdit.cancel()}" value="cancel" type="submit" immediate="true" class="btn"/>
+                <h:commandButton action="#{ruleEntryEdit.cancel()}" value="cancel" type="submit" immediate="true" class="btn btn-secondary"/>
             </div>
         </div>
 	</h:form>

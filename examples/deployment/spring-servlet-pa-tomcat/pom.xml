@@ -9,7 +9,7 @@
 
   <properties>
     <eximeebpms.version>1.4.0</eximeebpms.version>
-    <spring.version>6.2.11</spring.version>
+    <spring.version>7.0.9</spring.version>
     <tomcat.version>10.1.43</tomcat.version>
     <version.jakartaee>10.0.0</version.jakartaee>
 

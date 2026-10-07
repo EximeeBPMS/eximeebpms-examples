@@ -1,11 +1,11 @@
 var DEFAULT_RENDER_PRIORITY = 1000;
 
 /**
- * @typedef {import('../core/Types').ElementLike} Element
- * @typedef {import('../core/Types').ConnectionLike} Connection
- * @typedef {import('../core/Types').ShapeLike} Shape
+ * @typedef {import('../core/Types.js').ElementLike} Element
+ * @typedef {import('../core/Types.js').ConnectionLike} Connection
+ * @typedef {import('../core/Types.js').ShapeLike} Shape
  *
- * @typedef {import('../core/EventBus').default} EventBus
+ * @typedef {import('../core/EventBus.js').default} EventBus
  */
 
 /**
@@ -618,7 +618,7 @@ function getBusinessObject(element) {
 /**
  * @typedef {(string|number)[]} Component
  *
- * @typedef {import('../util/Types').Point} Point
+ * @typedef {import('./Types.js').Point} Point
  */
 
 /**

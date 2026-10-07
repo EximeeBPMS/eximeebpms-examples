@@ -14,7 +14,7 @@
     <groovy.version>5.0.8</groovy.version>
     <slf4j.version>1.7.36</slf4j.version>
     <junit.version>4.13.2</junit.version>
-    <assertj.version>3.21.0</assertj.version>
+    <assertj.version>3.27.7</assertj.version>
     <h2.version>2.3.232</h2.version>
     <saxon-he.version>12.7</saxon-he.version>
     <maven.compiler.release>17</maven.compiler.release>

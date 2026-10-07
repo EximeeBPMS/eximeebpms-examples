@@ -8,7 +8,7 @@
 
   <properties>
     <eximeebpms.version>1.4.0</eximeebpms.version>
-    <version.spring>6.2.11</version.spring>
+    <version.spring>7.0.9</version.spring>
     <!-- must match the WildFly version actually bundled inside eximeebpms-bpm-wildfly -->
     <version.wildfly>35.0.0.Final</version.wildfly>
     <version.jakartaee>11.0.0</version.jakartaee>

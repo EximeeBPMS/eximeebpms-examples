@@ -14,7 +14,7 @@
 	<properties>
         <eximeebpms.version>1.4.0</eximeebpms.version>
 		<jboss.home>${env.JBOSS_HOME}</jboss.home>
-		<drools.version>5.3.0.Final</drools.version>
+		<drools.version>10.2.0</drools.version>
         <fest.assert.version>2.0M10</fest.assert.version>
 
         <!-- Avoid the message "[WARNING] Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!" -->
@@ -32,6 +32,13 @@
                 <groupId>org.eximeebpms.bpm</groupId>
                 <artifactId>eximeebpms-bom</artifactId>
                 <version>${eximeebpms.version}</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency>
+            <dependency>
+                <groupId>org.drools</groupId>
+                <artifactId>drools-bom</artifactId>
+                <version>${drools.version}</version>
                 <scope>import</scope>
                 <type>pom</type>
             </dependency>
@@ -71,7 +78,7 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.11</version>
+			<version>4.13.2</version>
 			<scope>test</scope>
 		</dependency>
 
@@ -104,18 +111,11 @@
 
 		<dependency>
 			<groupId>org.drools</groupId>
-			<artifactId>drools-core</artifactId>
-			<version>${drools.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.drools</groupId>
-			<artifactId>drools-compiler</artifactId>
-			<version>${drools.version}</version>
+			<artifactId>drools-engine-classic</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.drools</groupId>
 			<artifactId>drools-templates</artifactId>
-			<version>5.1.1</version>
 		</dependency>
         <dependency>
             <groupId>org.easytesting</groupId>
@@ -127,7 +127,7 @@
         <dependency>
             <groupId>org.webjars</groupId>
             <artifactId>bootstrap</artifactId>
-            <version>2.1.1</version>
+            <version>5.3.8</version>
         </dependency>
     </dependencies>
 
